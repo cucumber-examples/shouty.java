@@ -18,7 +18,7 @@ Git:
 
 Subversion:
 
-    svn checkout https://github.com/cucumber-ltd/shouty.java
+    svn checkout https://github.com/cucumber-ltd/shouty.java/trunk shouty.java
     cd shouty.java
 
 Or simply [download](https://github.com/cucumber-ltd/shouty.java/releases) a zip or tarball.
@@ -29,7 +29,6 @@ Or simply [download](https://github.com/cucumber-ltd/shouty.java/releases) a zip
   * Install Gherkin plugin
   * Install Cucumber for Java plugin
 * Install Maven
-* Clone this repo
 * Run `mvn test`
 
 You should see:
