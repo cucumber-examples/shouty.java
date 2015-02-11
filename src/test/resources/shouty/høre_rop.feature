@@ -14,6 +14,7 @@ Egenskap: Høre rop
   - Må vi verifisere brukeres autentisitet?
   - Hva skjer når noen sender en melding som er for lang?
   - Må systeme varsle noen når ytelsen går ned?
+  - Skal man høre sine egne meldinger?
 
   Antagelser:
   - Slottet-Munch muséet er 1,6km
@@ -22,9 +23,8 @@ Egenskap: Høre rop
     Gitt at Sonja er på Slottet
     Men Harald er på Munch-muséet
     Når Sonja roper "teen er klar"
-    Så hører ikke Harald meldingen
+    Så hører ikke Harald meldingen "teen er klar"
 
-  @fokus
   Scenario: Harald er mindre enn 1 km fra Sonja
     Gitt at Sonja er på Slottet
     Men Harald er på Egertorget

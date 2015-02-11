@@ -10,6 +10,7 @@ import java.util.List;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 
 public class RopSteps {
 
@@ -50,10 +51,10 @@ public class RopSteps {
         sonjasBeskjed = beskjed;
     }
 
-    @Så("^hører ikke Harald meldingen$")
-    public void hører_ikke_Harald_meldingen() throws Throwable {
-        boolean hørt = harald.mottatteMeldinger().contains(sonjasBeskjed);
-        assertFalse("Forventet at Harald ikke hørte meldingen", hørt);
+    @Så("^hører ikke Harald meldingen \"(.*?)\"$")
+    public void hører_ikke_Harald_meldingen(String forventetMelding) throws Throwable {
+        List<String> forventeteMeldinger = asList(forventetMelding);
+        assertNotEquals(forventeteMeldinger, harald.mottatteMeldinger());
     }
 
     @Så("^hører Harald meldingen \"(.*?)\"$")
