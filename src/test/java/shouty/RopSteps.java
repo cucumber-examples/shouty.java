@@ -7,6 +7,7 @@ import cucumber.api.java.no.Så;
 
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -50,8 +51,8 @@ public class RopSteps {
     }
 
     @Så("^hører Harald meldingen \"(.*?)\"$")
-    public void hører_Harald_meldingen(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void hører_Harald_meldingen(String forventetMelding) throws Throwable {
+        List<String> forventeteMeldinger = asList(forventetMelding);
+        assertEquals(forventeteMeldinger, harald.mottatteMeldinger());
     }
 }
