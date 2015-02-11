@@ -5,7 +5,9 @@ import cucumber.api.java.no.Gitt;
 import cucumber.api.java.no.Når;
 import cucumber.api.java.no.Så;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
@@ -14,52 +16,46 @@ import static org.junit.Assert.assertNotEquals;
 
 public class RopSteps {
 
-    private Person sonja;
-    private Person harald;
-    private String sonjasBeskjed;
     private Postbud postbud;
+    private Map<String, Person> personer = new HashMap<String, Person>();
+    private Map<String, double[]> steder = new HashMap<String, double[]>();
 
     @Before
-    public void lagPostbud() {
+    public void lagPostbudOgPersonerOgSteder() {
         postbud = new Postbud();
+        personer.put("Sonja", new Person(postbud));
+        personer.put("Harald", new Person(postbud));
+
+        steder.put("Slottet", new double[]{59.917043, 10.727377});
+        steder.put("Munch-muséet", new double[]{59.916951, 10.77498});
+        steder.put("Egertorget", new double[]{59.9128017,10.7418443});
     }
 
-    @Gitt("^at Sonja er på Slottet$")
-    public void at_Sonja_er_på_Slottet() throws Throwable {
-        sonja = new Person(postbud);
-        double[] slottet = {59.917043, 10.727377};
-        sonja.erPå(slottet);
+    @Gitt("^at (.*) er på (.*)$")
+    public void at_person_er_på_sted(String personNavn, String stedsNavn) throws Throwable {
+        Person person = personer.get(personNavn);
+        double[] geoLoc = steder.get(stedsNavn);
+        person.erPå(geoLoc);
     }
 
-    @Gitt("^Harald er på Munch-muséet$")
-    public void harald_er_på_Munch_muséet() throws Throwable {
-        harald = new Person(postbud);
-        double[] munchMuseet = {59.916951, 10.77498};
-        harald.erPå(munchMuseet);
+    @Når("^(.*) roper \"(.*?)\"$")
+    public void sonja_roper(String personNavn, String beskjed) throws Throwable {
+        personer.get(personNavn).roper(beskjed);
     }
 
-    @Gitt("^Harald er på Egertorget$")
-    public void harald_er_på_Egertorget() throws Throwable {
-        harald = new Person(postbud);
-        double[] egertorget = {59.9128017,10.7418443};
-        harald.erPå(egertorget);
-    }
+    @Så("^hører ikke (\\w+) meldingen \"(.*?)\"$")
+    public void hører_ikke_Harald_meldingen(String personNavn, String forventetMelding) throws Throwable {
+        Person person = personer.get(personNavn);
 
-    @Når("^Sonja roper \"(.*?)\"$")
-    public void sonja_roper(String beskjed) throws Throwable {
-        sonja.roper(beskjed);
-        sonjasBeskjed = beskjed;
-    }
-
-    @Så("^hører ikke Harald meldingen \"(.*?)\"$")
-    public void hører_ikke_Harald_meldingen(String forventetMelding) throws Throwable {
         List<String> forventeteMeldinger = asList(forventetMelding);
-        assertNotEquals(forventeteMeldinger, harald.mottatteMeldinger());
+        assertNotEquals(forventeteMeldinger, person.mottatteMeldinger());
     }
 
-    @Så("^hører Harald meldingen \"(.*?)\"$")
-    public void hører_Harald_meldingen(String forventetMelding) throws Throwable {
+    @Så("^hører (\\w+) meldingen \"(.*?)\"$")
+    public void hører_Harald_meldingen(String personNavn, String forventetMelding) throws Throwable {
+        Person person = personer.get(personNavn);
+
         List<String> forventeteMeldinger = asList(forventetMelding);
-        assertEquals(forventeteMeldinger, harald.mottatteMeldinger());
+        assertEquals(forventeteMeldinger, person.mottatteMeldinger());
     }
 }

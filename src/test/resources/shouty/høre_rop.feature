@@ -21,13 +21,13 @@ Egenskap: Høre rop
 
   Scenario: Harald er for langt borte fra Sonja
     Gitt at Sonja er på Slottet
-    Men Harald er på Munch-muséet
+    Men at Harald er på Munch-muséet
     Når Sonja roper "teen er klar"
     Så hører ikke Harald meldingen "teen er klar"
 
   Scenario: Harald er mindre enn 1 km fra Sonja
     Gitt at Sonja er på Slottet
-    Men Harald er på Egertorget
+    Men at Harald er på Egertorget
     Når Sonja roper "teen er klar"
     Så hører Harald meldingen "teen er klar"
 
