@@ -1,6 +1,6 @@
 package shouty;
 
-import cucumber.api.PendingException;
+import cucumber.api.java.Before;
 import cucumber.api.java.no.Gitt;
 import cucumber.api.java.no.Når;
 import cucumber.api.java.no.Så;
@@ -16,24 +16,30 @@ public class RopSteps {
     private Person sonja;
     private Person harald;
     private String sonjasBeskjed;
+    private Postbud postbud;
+
+    @Before
+    public void lagPostbud() {
+        postbud = new Postbud();
+    }
 
     @Gitt("^at Sonja er på Slottet$")
     public void at_Sonja_er_på_Slottet() throws Throwable {
-        sonja = new Person();
+        sonja = new Person(postbud);
         double[] slottet = {59.917043, 10.727377};
         sonja.erPå(slottet);
     }
 
     @Gitt("^Harald er på Munch-muséet$")
     public void harald_er_på_Munch_muséet() throws Throwable {
-        harald = new Person();
+        harald = new Person(postbud);
         double[] munchMuseet = {59.916951, 10.77498};
         harald.erPå(munchMuseet);
     }
 
     @Gitt("^Harald er på Egertorget$")
     public void harald_er_på_Egertorget() throws Throwable {
-        harald = new Person();
+        harald = new Person(postbud);
         double[] egertorget = {59.9128017,10.7418443};
         harald.erPå(egertorget);
     }
