@@ -11,7 +11,6 @@ import java.util.Map;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 
 public class RopSteps {
@@ -25,10 +24,13 @@ public class RopSteps {
         postbud = new Postbud();
         personer.put("Sonja", new Person(postbud));
         personer.put("Harald", new Person(postbud));
+    }
 
-        steder.put("Slottet", new double[]{59.917043, 10.727377});
-        steder.put("Munch-muséet", new double[]{59.916951, 10.77498});
-        steder.put("Egertorget", new double[]{59.9128017,10.7418443});
+    @Gitt("^at (\\w+) ligger på (.*), (.*)$")
+    public void at_sted_ligger_på(String stedsNavn, String latS, String lonS) throws Throwable {
+        steder.put(stedsNavn, new double[]{
+                Double.valueOf(latS),
+                Double.valueOf(lonS)});
     }
 
     @Gitt("^at (.*) er på (.*)$")
