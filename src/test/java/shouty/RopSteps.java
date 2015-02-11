@@ -8,8 +8,9 @@ import cucumber.api.java.no.Så;
 public class RopSteps {
     @Gitt("^at Sonja er på Slottet$")
     public void at_Sonja_er_på_Slottet() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        Person sonja = new Person();
+        double[] slottet = {59.917043, 10.727377};
+        sonja.erPå(slottet);
     }
 
     @Gitt("^Harald er på Munch-muséet$")
