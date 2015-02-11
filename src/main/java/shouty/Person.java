@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Person {
     private final Postbud postbud;
+    private List<String> mottatteMeldinger = new ArrayList<String>();
 
     public Person(Postbud postbud) {
         this.postbud = postbud;
@@ -20,6 +21,10 @@ public class Person {
     }
 
     public List<String> mottatteMeldinger() {
-        return new ArrayList<String>();
+        return mottatteMeldinger;
+    }
+
+    public void hør(String beskjed) {
+        mottatteMeldinger.add(beskjed);
     }
 }
