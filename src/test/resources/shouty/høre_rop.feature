@@ -37,4 +37,3 @@ Egenskap: Høre rop
 
 
 
-
