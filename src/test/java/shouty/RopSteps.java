@@ -30,6 +30,13 @@ public class RopSteps {
         harald.erPå(munchMuseet);
     }
 
+    @Gitt("^Harald er på Egertorget$")
+    public void harald_er_på_Egertorget() throws Throwable {
+        harald = new Person();
+        double[] egertorget = {59.9128017,10.7418443};
+        harald.erPå(egertorget);
+    }
+
     @Når("^Sonja roper \"(.*?)\"$")
     public void sonja_roper(String beskjed) throws Throwable {
         sonja.roper(beskjed);
@@ -39,6 +46,12 @@ public class RopSteps {
     @Så("^hører ikke Harald meldingen$")
     public void hører_ikke_Harald_meldingen() throws Throwable {
         boolean hørt = harald.mottatteMeldinger().contains(sonjasBeskjed);
-        assertFalse("Forventet at Harald ikke hørte beskjeden", hørt);
+        assertFalse("Forventet at Harald ikke hørte meldingen", hørt);
+    }
+
+    @Så("^hører Harald meldingen \"(.*?)\"$")
+    public void hører_Harald_meldingen(String arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
     }
 }

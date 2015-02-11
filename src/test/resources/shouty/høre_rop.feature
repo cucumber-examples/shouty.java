@@ -16,13 +16,21 @@ Egenskap: Høre rop
   - Må systeme varsle noen når ytelsen går ned?
 
   Antagelser:
-  - Slottet-Munch museet er 1,6km
+  - Slottet-Munch muséet er 1,6km
 
   Scenario: Harald er for langt borte fra Sonja
     Gitt at Sonja er på Slottet
     Men Harald er på Munch-muséet
     Når Sonja roper "teen er klar"
     Så hører ikke Harald meldingen
+
+  @fokus
+  Scenario: Harald er mindre enn 1 km fra Sonja
+    Gitt at Sonja er på Slottet
+    Men Harald er på Egertorget
+    Når Sonja roper "teen er klar"
+    Så hører Harald meldingen "teen er klar"
+
 
 
 
