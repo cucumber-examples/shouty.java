@@ -8,6 +8,7 @@ public class Person {
 
     public Person(Postbud postbud) {
         this.postbud = postbud;
+        postbud.abonner(this);
     }
 
     public void erPå(double[] geoLoc) {
