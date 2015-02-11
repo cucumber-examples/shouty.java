@@ -17,7 +17,7 @@ public class Person {
     }
 
     public void roper(String beskjed) {
-        postbud.distribuer(beskjed);
+        postbud.distribuer(this, beskjed);
     }
 
     public List<String> mottatteMeldinger() {
