@@ -20,9 +20,9 @@ Egenskap: Høre rop
   - Slottet-Munch muséet er 1,6km
 
   Bakgrunn:
-    Gitt at Slottet ligger på 59.917043, 10.727377
-    Gitt at Munchmuseet ligger på 59.916951, 10.77498
-    Gitt at Egertorget ligger på 59.9128017, 10.7418443
+    Gitt at Slottet ligger på 59,917043, 10,727377
+    Gitt at Munchmuseet ligger på 59,916951, 10,77498
+    Gitt at Egertorget ligger på 59,9128017, 10,7418443
 
   Scenario: Harald er for langt borte fra Sonja
     Gitt at Sonja er på Slottet

@@ -27,10 +27,8 @@ public class RopSteps {
     }
 
     @Gitt("^at (\\w+) ligger på (.*), (.*)$")
-    public void at_sted_ligger_på(String stedsNavn, String latS, String lonS) throws Throwable {
-        steder.put(stedsNavn, new double[]{
-                Double.valueOf(latS),
-                Double.valueOf(lonS)});
+    public void at_sted_ligger_på(String stedsNavn, double lat, double lon) throws Throwable {
+        steder.put(stedsNavn, new double[]{lat, lon});
     }
 
     @Gitt("^at (.*) er på (.*)$")
