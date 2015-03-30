@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.Double.parseDouble;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
@@ -18,9 +19,13 @@ public class ShoutSteps {
     private Person sam;
     private Person lisa;
 
-    @Given("^\"(.+)\" is at (.+),(.+)$")
-    public void place_is_at(String placeName, double lat, double lon) throws Throwable {
-        places.put(placeName, new double[]{lat, lon});
+    @Given("^the following locations:$")
+    public void the_following_locations(List<Map<String, String>> places) throws Throwable {
+        for (Map<String, String> place : places) {
+            double lat = parseDouble(place.get("lat"));
+            double lon = parseDouble(place.get("lon"));
+            this.places.put(place.get("place"), new double[]{lat, lon});
+        }
     }
 
     @Given("^Sam is in \"(.*?)\"$")
