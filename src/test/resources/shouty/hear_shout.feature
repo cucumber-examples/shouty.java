@@ -8,7 +8,7 @@ Feature: Hear Shout
     Shawn Shouter
 
 
-  Scenario: Listener doesn't hear shou
+  Scenario: Listener doesn't hear shout
     When Shawn shouts "Hello"
     Then Linda hears nothing
 
