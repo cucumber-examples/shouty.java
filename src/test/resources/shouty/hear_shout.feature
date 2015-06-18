@@ -14,3 +14,8 @@ Feature: Hear Shout
     Given "Jill" is 1500m from "Jack"
     When "Jack" shouts
     Then "Jill" can't hear anything
+
+  Scenario: Jill can hear Jack
+    Given "Jill" is 500m from "Jack"
+    When "Jack" shouts "hello"
+    Then "Jill" can hear "hello"
