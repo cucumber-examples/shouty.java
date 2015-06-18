@@ -10,6 +10,10 @@ Feature: Hear Shout
   - No UI for now (only domain layer)
   - Geo locations supplied by UI in outer hexagon
 
+  Questions:
+  - Do people hear their own shouts?
+  - When do people get created?
+
   Scenario: Jill can't hear Jack
     Given "Jill" is 1500m from "Jack"
     When "Jack" shouts
