@@ -6,26 +6,24 @@ import cucumber.api.java.en.When;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
 public class ShoutSteps {
     private final ShoutyDomain shoutyDomain = new ShoutyDomain();
+    private Map<String,double[]> geoLocations = new HashMap<String, double[]>() {{
+        put("BeachBody HQ", new double[]{34.0296612, -118.4587113});
+        put("Best Western", new double[]{34.0283391, -118.4799290});
+        put("Lemon Moon", new double[]{34.0296612, -118.4578852});
+    }};
 
-    @Given("^\"(.*?)\" is (\\d+)m from \"(.*?)\"$")
-    public void is_m_from(String shouter, long distanceInMeters, String listener) throws Throwable {
-        double[] beachBody = new double[]{34.0296612, -118.4587113};
-        double[] bestWestern = new double[]{34.0283391, -118.4799290};
-        double[] lemonMoon = new double[]{34.0296612, -118.4578852};
-
-        shoutyDomain.personIsIn(shouter, beachBody);
-
-        if (distanceInMeters < 1000) {
-            shoutyDomain.personIsIn(listener, lemonMoon);
-        } else {
-            shoutyDomain.personIsIn(listener, bestWestern);
-        }
+    @Given("^\"(.*?)\" is in \"(.*?)\"$")
+    public void is_in(String personName, String locationName) throws Throwable {
+        double[] geoLocation = geoLocations.get(locationName);
+        shoutyDomain.personIsIn(personName, geoLocation);
     }
 
     @When("^\"(.*?)\" shouts$")
