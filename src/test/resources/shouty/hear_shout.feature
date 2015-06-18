@@ -11,6 +11,6 @@ Feature: Hear Shout
   - Geo locations supplied by UI in outer hexagon
 
   Scenario: Jill can't hear Jack
-    Given "Jill" is 500m from "Jack"
+    Given "Jill" is 1500m from "Jack"
     When "Jack" shouts
-    Then "Jill" can't hear "Jack"
+    Then "Jill" can't hear anything

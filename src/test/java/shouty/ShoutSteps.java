@@ -5,6 +5,11 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
 public class ShoutSteps {
     private final ShoutyDomain shoutyDomain = new ShoutyDomain();
 
@@ -18,13 +23,12 @@ public class ShoutSteps {
     }
 
     @When("^\"(.*?)\" shouts$")
-    public void shouts(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void shouts(String shouter) throws Throwable {
+        shoutyDomain.sendShout(shouter, "hello");
     }
 
-    @Then("^\"(.*?)\" can't hear \"(.*?)\"$")
-    public void can_t_hear(String arg1, String arg2) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    @Then("^\"(.*?)\" can't hear anything$")
+    public void can_t_hear_anything(String listener) throws Throwable {
+        List<String> receivedMessages = shoutyDomain.getReceivedMessages(listener);
+        assertEquals(new ArrayList<String>(), receivedMessages);
     }}
