@@ -15,6 +15,7 @@ Git:
 
     git clone https://github.com/cucumber-ltd/shouty.java.git
     cd shouty.java
+    git checkout YYYY-MM-DD
 
 Subversion:
 
@@ -52,7 +53,7 @@ Then do this for each example to discover more examples:
 * Can you think of a context where the outcome would be different?
 * Are there any other outcomes we haven't thought about?
 
-### Implement one capability. Text UI only.
+### Implement one capability. Inner Hexagon only.
 
 * Write a Cucumber Scenario for one of the examples
 * Make it pass!
