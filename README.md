@@ -15,7 +15,7 @@ Git:
 
     git clone https://github.com/cucumber-ltd/shouty.java.git
     cd shouty.java
-    git checkout YYYY-MM-DD
+    git checkout 2015-06-18
 
 Subversion:
 
