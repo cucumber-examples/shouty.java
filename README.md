@@ -1,59 +1,96 @@
-# Shouty
+# Cucumber-Java Skeleton
 
-Shouty is a social networking application for short physical distances.
-When someone shouts, only people within 1000m can hear it.
+This is the simplest possible build script setup for Cucumber using Java.
+There is nothing fancy like a webapp or browser testing. All this does is to show you how
+to install and run Cucumber!
 
-Shouty doesn't exist yet - you will implement it yourself!
-
-That is, if you're attending a BDD/Cucumber course.
-
-## Agenda
-
-### Get the code
+## Get the code
 
 Git:
 
-    git clone https://github.com/cucumber-ltd/shouty.java.git
-    cd shouty.java
-    git checkout YYYY-MM-DD
+    git clone https://github.com/cucumber/cucumber-java-skeleton.git
+    cd cucumber-java-skeleton
 
 Subversion:
 
-    svn checkout https://github.com/cucumber-ltd/shouty.java/trunk shouty.java
-    cd shouty.java
+    svn checkout https://github.com/cucumber/cucumber-java-skeleton
+    cd cucumber-java-skeleton
 
-Or simply [download](https://github.com/cucumber-ltd/shouty.java/releases) a zip or tarball.
+Or simply [download](https://github.com/cucumber/cucumber-java-skeleton/releases) the latest
+`vX.Y.Z` zip or tarball.
 
-### Set up environment
+## Use Maven
 
-* Install IntelliJ IDEA
-  * Install Gherkin plugin
-  * Install Cucumber for Java plugin
-* Install Maven
-* Run `mvn test`
+Open a command window and run:
 
-You should see:
+    mvn test
 
-    0 Scenarios
-    0 Steps
+This runs Cucumber features using Cucumber's JUnit runner. The `@RunWith(Cucumber.class)` annotation on the `RunCukesTest`
+class tells JUnit to kick off Cucumber.
 
-### Brainstorm capabilities
+## Use Ant
 
-* Who are the main stakeholders?
-* What can people do with the app?
-* What are the main differentiators from other apps?
+Open a command window and run:
 
-### Pick one capability
+    ant download
+    ant runcukes
 
-* Define rules
-* Create high level examples (Friends episodes)
+This runs Cucumber features using Cucumber's Command Line Interface (CLI) runner. Note that the `RunCukesTest` junit class is not used at all.
+If you remove it (and the `cucumber-junit` jar dependency), it will run just the same.
 
-Then do this for each example to discover more examples:
+## Overriding options
 
-* Can you think of a context where the outcome would be different?
-* Are there any other outcomes we haven't thought about?
+The Cucumber runtime parses command line options to know what features to run, where the glue code lives, what formatters to use etc.
+When you use the JUnit runner, these options are generated from the `@CucumberOptions` annotation on your test.
 
-### Implement one capability. Inner Hexagon only.
+Sometimes it can be useful to override these options without changing or recompiling the JUnit class. This can be done with the
+`cucumber.options` system property. The general form is:
 
-* Write a Cucumber Scenario for one of the examples
-* Make it pass!
+Using Maven:
+
+    mvn -Dcucumber.options="..." test
+
+Using Ant:
+
+    JAVA_OPTIONS='-Dcucumber.options="..."' ant runcukes
+
+Let's look at some things you can do with `cucumber.options`. Try this:
+
+    -Dcucumber.options="--help"
+
+That should list all the available options.
+
+*IMPORTANT*
+
+When you override options with `-Dcucumber.options`, you will completely override whatever options are hard-coded in
+your `@CucumberOptions` or in the script calling `cucumber.api.cli.Main`. There is one exception to this rule, and that
+is the `--plugin` option. This will not _override_, but _add_ a plugin. The reason for this is to make it easier
+for 3rd party tools (such as [Cucumber Pro](https://cucumber.pro/)) to automatically configure additional plugins by appending arguments to a `cucumber.properties`
+file.
+
+### Run a subset of Features or Scenarios
+
+Specify a particular scenario by *line* (and use the pretty format)
+
+    -Dcucumber.options="classpath:skeleton/belly.feature:4 --plugin pretty"
+
+This works because Maven puts `./src/test/resources` on your `classpath`.
+You can also specify files to run by filesystem path:
+
+    -Dcucumber.options="src/test/resources/skeleton/belly.feature:4 --plugin pretty"
+
+You can also specify what to run by *tag*:
+
+    -Dcucumber.options="--tags @bar --plugin pretty"
+
+### Running only the scenarios that failed in the previous run
+
+    -Dcucumber.options="@target/rerun.txt"
+
+This works as long as you have the `rerun` formatter enabled.
+
+### Specify a different formatter:
+
+For example a JUnit formatter:
+
+    -Dcucumber.options="--plugin junit:target/cucumber-junit-report.xml"
