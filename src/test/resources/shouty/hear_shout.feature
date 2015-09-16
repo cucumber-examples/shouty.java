@@ -15,13 +15,13 @@ Feature: Hear Shout
   - Piccadilly Circus is more than a km from Heathrow
 
   Scenario: Lucy can't hear Sean
-    Given "Sean" is at "Piccadilly Circus Station"
-    And "Lucy" is at "Heathrow Terminal 5"
+    Given "Sean" is at "NCR Edinburgh"
+    And "Lucy" is at "Waverly"
     When "Sean" shouts "hello"
     Then "Lucy" should not hear anything
 
   Scenario: Lucy can hear Sean
-    Given "Sean" is at "Piccadilly Circus Station"
-    And "Lucy" is at "Leicester Square Station"
+    Given "Sean" is at "NCR Edinburgh"
+    And "Lucy" is at "Old Bell Inn"
     When "Sean" shouts "hello"
     Then "Lucy" should hear "hello"
