@@ -2,11 +2,11 @@ package shouty;
 
 public class Person {
 
-	private Shouty network;
+	private Network network;
 	private String lastMessageHeard = "";
 
-	public Person(Shouty shouty) {
-		this.network = shouty;
+	public Person(Network network) {
+		this.network = network;
 	}
 
 	public String getLastMessageHeard() {
