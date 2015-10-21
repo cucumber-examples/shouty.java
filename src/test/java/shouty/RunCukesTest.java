@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(monochrome = true, plugin = 
 		{"pretty", "html:target/cucumber", "rerun:target/rerun.txt"},
-		strict = false)
+		strict = false,
+		tags = {"~@this"})
 public class RunCukesTest {
 }
