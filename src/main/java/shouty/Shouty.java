@@ -6,40 +6,32 @@ import java.util.List;
 import java.util.Map;
 
 public class Shouty {
-    private Map<String, Person> people = new HashMap<String, Person>();
+    private Map<String, Integer> locations = new HashMap<String, Integer>();
+    private String shouterName;
+    private String message;
 
     public void setLocation(String personName, int location) {
-        findOrCreatePerson(personName).location = location;
+        locations.put(personName, location);
     }
 
     public void shout(String personName, String message) {
-        Person shouter = findOrCreatePerson(personName);
-        for (Person listener : people.values()) {
-            if (withinRange(listener, shouter)) {
-                listener.messagesHeard.add(message);
-            }
+        shouterName = personName;
+        this.message = message;
+    }
+
+    private boolean withinRange(String a, String b) {
+        return Math.abs(locations.get(a) - locations.get(b)) <= 1000;
+    }
+
+    public List<String> getMessagesHeardBy(String listenerName) {
+        List<String> messagesHeard = new ArrayList<String>();
+        Integer shoutLocation = locations.get(shouterName);
+        Integer listenerLocation = locations.get(listenerName);
+
+        if (withinRange(listenerName, shouterName)) {
+            messagesHeard.add(message);
         }
-    }
 
-    private boolean withinRange(Person a, Person b) {
-        return Math.abs(a.location - b.location) <= 1000;
-    }
-
-    public List<String> getMessagesHeardBy(String personName) {
-        return findOrCreatePerson(personName).messagesHeard;
-    }
-
-    private Person findOrCreatePerson(String personName) {
-        Person person = people.get(personName);
-        if (person == null) {
-            person = new Person();
-            people.put(personName, person);
-        }
-        return person;
-    }
-
-    private class Person {
-        public List<String> messagesHeard = new ArrayList<String>();
-        public int location;
+        return messagesHeard;
     }
 }
