@@ -8,7 +8,7 @@ import java.util.Map;
 public class Shouty {
     private Map<String, Integer> locations = new HashMap<String, Integer>();
     private String shouterName;
-    private String message;
+    private String shouterMessage;
 
     public void setLocation(String personName, int location) {
         locations.put(personName, location);
@@ -16,7 +16,7 @@ public class Shouty {
 
     public void shout(String personName, String message) {
         shouterName = personName;
-        this.message = message;
+        shouterMessage = message;
     }
 
     private boolean withinRange(String a, String b) {
@@ -29,7 +29,7 @@ public class Shouty {
         Integer listenerLocation = locations.get(listenerName);
 
         if (withinRange(listenerName, shouterName)) {
-            messagesHeard.add(message);
+            messagesHeard.add(shouterMessage);
         }
 
         return messagesHeard;
