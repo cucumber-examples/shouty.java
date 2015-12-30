@@ -4,10 +4,13 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequestWithBody;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import shouty.web.ShoutyWebServer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,12 +40,24 @@ public class SeleniumShouty implements Shouty {
 
     @Override
     public void shout(String shouterName, String message) {
-        throw new UnsupportedOperationException();
+        WebDriver browser = findOrCreateBrowser(shouterName);
+        browser.get("http://localhost:8090/people/" + shouterName);
+        WebElement messageField = browser.findElement(By.id("message"));
+        messageField.sendKeys(message);
+        messageField.submit();
     }
 
     @Override
     public List<String> getMessagesHeardBy(String personName) {
-        throw new UnsupportedOperationException();
+        WebDriver browser = findOrCreateBrowser(personName);
+        browser.get("http://localhost:8090/people/" + personName);
+        List<WebElement> messageElements = browser.findElements(By.cssSelector(".messages li"));
+        // TODO: Use Java 8 lambdas
+        List<String> messages = new ArrayList<>();
+        for (WebElement messageElement : messageElements) {
+            messages.add(messageElement.getText());
+        }
+        return messages;
     }
 
     private WebDriver findOrCreateBrowser(String personName) {

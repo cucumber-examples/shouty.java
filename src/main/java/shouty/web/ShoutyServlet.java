@@ -15,27 +15,36 @@ import java.util.regex.Pattern;
 
 public class ShoutyServlet extends HttpServlet {
 
+    public static final Pattern PERSON_PAGE_PATTERN = Pattern.compile("/people/([^/]+)");
     public static final Pattern MOVE_PATTERN = Pattern.compile("/people/([^/]+)/move");
 
     private final Shouty shouty = new DomainShouty();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json");
-        response.setStatus(HttpServletResponse.SC_OK);
+        Matcher matcher = PERSON_PAGE_PATTERN.matcher(request.getPathInfo());
+        if (matcher.matches()) {
+            String personName = matcher.group(1);
+
+            response.setContentType("text/html");
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().format("" +
+                    "<form method=post action=/people/%s/shouts>\n" +
+                    "  <input type=text name=message id=message>\n" +
+                    "</form>", personName);
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String locationString = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8")).readLine();
-        int location = Integer.parseInt(locationString);
-
-        String path = request.getPathInfo();
-        Matcher matcher = MOVE_PATTERN.matcher(path);
+        Matcher matcher = MOVE_PATTERN.matcher(request.getPathInfo());
         if (matcher.matches()) {
             String personName = matcher.group(1);
-            System.out.println("personName = " + personName);
+            String locationString = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8")).readLine();
+            int location = Integer.parseInt(locationString);
             shouty.setLocation(personName, location);
-
             response.setStatus(HttpServletResponse.SC_CREATED); // 201
+        } else {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
+            response.getWriter().format("Not found: %s", request.getPathInfo());
         }
     }
 }
