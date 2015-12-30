@@ -13,7 +13,7 @@ public class ShoutSteps {
 
     private final Shouty shouty;
 
-    public ShoutSteps() {
+    public ShoutSteps() throws Exception {
         if("selenium".equals(System.getProperty("automation"))) {
             shouty = new SeleniumShouty();
         } else {

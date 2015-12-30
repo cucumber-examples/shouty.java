@@ -15,6 +15,7 @@ Feature: Hear Shout
     When Sean shouts
     Then Lucy should hear nothing
 
+  @wip
   Scenario: In range shout is heard
     Given Lucy is 900m from Sean
     When Sean shouts
