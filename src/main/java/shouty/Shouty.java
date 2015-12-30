@@ -21,9 +21,16 @@ public class Shouty {
         return person;
     }
 
-    public void shout(String personName, String message) {
-        for (Person person : people.values()) {
-            person.hear(message);
+    public void shout(String shouterName, String message) {
+        int shouterLocation = person(shouterName).getLocation();
+
+        for (Person listener : people.values()) {
+            int listenerLocation = listener.getLocation();
+            int distance = Math.abs(listenerLocation - shouterLocation);
+
+            if (distance <= 1000) {
+                listener.hear(message);
+            }
         }
     }
 

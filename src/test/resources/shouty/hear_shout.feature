@@ -15,7 +15,6 @@ Feature: Hear Shout
     When Sean shouts
     Then Lucy should hear nothing
 
-  @focus
   Scenario: In range shout is heard
     Given Lucy is 900m from Sean
     When Sean shouts
