@@ -13,6 +13,7 @@ import shouty.web.ShoutyWebServer;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertEquals;
 
 public class SeleniumShouty implements Shouty {
@@ -48,11 +49,6 @@ public class SeleniumShouty implements Shouty {
     public List<String> getMessagesHeardBy(String personName) {
         browser.get("http://localhost:8090/people/" + personName);
         List<WebElement> messageElements = browser.findElements(By.cssSelector(".messages li"));
-        // TODO: Use Java 8 lambdas
-        List<String> messages = new ArrayList<>();
-        for (WebElement messageElement : messageElements) {
-            messages.add(messageElement.getText());
-        }
-        return messages;
+        return messageElements.stream().map(WebElement::getText).collect(toList());
     }
 }
