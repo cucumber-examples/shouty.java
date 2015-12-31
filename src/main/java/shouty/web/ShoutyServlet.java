@@ -8,8 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static java.util.stream.Collectors.joining;
 
 public class ShoutyServlet extends HttpServlet {
 
@@ -23,10 +26,14 @@ public class ShoutyServlet extends HttpServlet {
         Matcher matcher = PERSON_PAGE_PATTERN.matcher(request.getPathInfo());
         if (matcher.matches()) {
             String personName = matcher.group(1);
+            List<String> messages = shouty.getMessagesHeardBy(personName);
 
             response.setContentType("text/html");
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().format("" +
+                    "<ul class=messages>" +
+                    messages.stream().map(message -> "<li>" + message + "</li>").collect(joining()) +
+                    "</ul>" +
                     "<form method=post action=/people/%s/shouts>\n" +
                     "  <input type=text name=message id=message>\n" +
                     "</form>", personName);
