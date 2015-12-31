@@ -7,9 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,7 +36,7 @@ public class ShoutyServlet extends HttpServlet {
         Matcher matcher = MOVE_PATTERN.matcher(request.getPathInfo());
         if (matcher.matches()) {
             String personName = matcher.group(1);
-            String locationString = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8")).readLine();
+            String locationString = request.getReader().readLine();
             int location = Integer.parseInt(locationString);
             shouty.setLocation(personName, location);
             response.setStatus(HttpServletResponse.SC_CREATED); // 201
