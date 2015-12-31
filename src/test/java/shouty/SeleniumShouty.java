@@ -11,14 +11,12 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import shouty.web.ShoutyWebServer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
 public class SeleniumShouty implements Shouty {
-    private final Map<String, WebDriver> browsers = new HashMap<String, WebDriver>();
+    private final WebDriver browser = new FirefoxDriver();
     private final ShoutyWebServer server;
 
     public SeleniumShouty() throws Exception {
@@ -40,7 +38,6 @@ public class SeleniumShouty implements Shouty {
 
     @Override
     public void shout(String shouterName, String message) {
-        WebDriver browser = findOrCreateBrowser(shouterName);
         browser.get("http://localhost:8090/people/" + shouterName);
         WebElement messageField = browser.findElement(By.id("message"));
         messageField.sendKeys(message);
@@ -49,7 +46,6 @@ public class SeleniumShouty implements Shouty {
 
     @Override
     public List<String> getMessagesHeardBy(String personName) {
-        WebDriver browser = findOrCreateBrowser(personName);
         browser.get("http://localhost:8090/people/" + personName);
         List<WebElement> messageElements = browser.findElements(By.cssSelector(".messages li"));
         // TODO: Use Java 8 lambdas
@@ -59,13 +55,4 @@ public class SeleniumShouty implements Shouty {
         }
         return messages;
     }
-
-    private WebDriver findOrCreateBrowser(String personName) {
-        WebDriver browser = browsers.get(personName);
-        if (browser == null) {
-            browsers.put(personName, browser = new FirefoxDriver());
-        }
-        return browser;
-    }
-
 }
