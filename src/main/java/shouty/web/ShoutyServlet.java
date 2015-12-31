@@ -15,6 +15,7 @@ public class ShoutyServlet extends HttpServlet {
 
     public static final Pattern PERSON_PAGE_PATTERN = Pattern.compile("/people/([^/]+)");
     public static final Pattern MOVE_PATTERN = Pattern.compile("/people/([^/]+)/move");
+    public static final Pattern SHOUTS_PATTERN = Pattern.compile("/people/([^/]+)/shouts");
 
     private final Shouty shouty = new DomainShouty();
 
@@ -41,8 +42,16 @@ public class ShoutyServlet extends HttpServlet {
             shouty.setLocation(personName, location);
             response.setStatus(HttpServletResponse.SC_CREATED); // 201
         } else {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
-            response.getWriter().format("Not found: %s", request.getPathInfo());
+            matcher = SHOUTS_PATTERN.matcher(request.getPathInfo());
+            if (matcher.matches()) {
+                String personName = matcher.group(1);
+                String message = request.getParameter("message");
+                shouty.shout(personName, message);
+                response.setStatus(HttpServletResponse.SC_CREATED); // 201
+            } else {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
+                response.getWriter().format("Not found: %s", request.getPathInfo());
+            }
         }
     }
 }
