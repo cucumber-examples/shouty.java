@@ -17,6 +17,7 @@ public class ShoutyServlet extends HttpServlet {
 
     public static final Pattern PERSON_PAGE_PATTERN = Pattern.compile("/people/([^/]+)");
     public static final Pattern MOVE_PATTERN = Pattern.compile("/people/([^/]+)/move");
+    public static final Pattern CREATE_SHOUT_PATTERN = Pattern.compile("/people/([^/]+)/shouts");
 
     private final Shouty shouty = new DomainShouty();
 
@@ -30,18 +31,30 @@ public class ShoutyServlet extends HttpServlet {
             response.getWriter().format("" +
                     "<form method=post action=/people/%s/shouts>\n" +
                     "  <input type=text name=message id=message>\n" +
-                    "</form>", personName);
+                    "</form>\n", personName);
+            response.getWriter().print("<ul class=messages>\n");
+            for (String message : shouty.getMessagesHeardBy(personName)) {
+                response.getWriter().format("<li>%s</li>\n", message);
+
+            }
+            response.getWriter().print("</ul>\n");
         }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Matcher matcher = MOVE_PATTERN.matcher(request.getPathInfo());
-        if (matcher.matches()) {
-            String personName = matcher.group(1);
+        Matcher moveMatcher = MOVE_PATTERN.matcher(request.getPathInfo());
+        Matcher createShoutMatcher = CREATE_SHOUT_PATTERN.matcher(request.getPathInfo());
+
+        if (moveMatcher.matches()) {
+            String personName = moveMatcher.group(1);
             String locationString = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8")).readLine();
             int location = Integer.parseInt(locationString);
             shouty.setLocation(personName, location);
             response.setStatus(HttpServletResponse.SC_CREATED); // 201
+        } else if (createShoutMatcher.matches()) {
+            String personName = createShoutMatcher.group(1);
+            String message = request.getParameter("message");
+            shouty.shout(personName, message);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
             response.getWriter().format("Not found: %s", request.getPathInfo());
