@@ -60,6 +60,18 @@ public class SeleniumShouty implements Shouty {
         return messages;
     }
 
+    @Override
+    public void stop() {
+        for (WebDriver browser : browsers.values()) {
+            browser.close();
+        }
+        try {
+            server.stop();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private WebDriver findOrCreateBrowser(String personName) {
         WebDriver browser = browsers.get(personName);
         if (browser == null) {
