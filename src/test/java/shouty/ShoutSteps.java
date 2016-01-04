@@ -10,7 +10,15 @@ import static org.junit.Assert.assertEquals;
 
 public class ShoutSteps {
 
-    private final Shouty shouty = new DomainShouty();
+    private final Shouty shouty;
+
+    public ShoutSteps() {
+        if ("web".equals(System.getProperty("automation"))) {
+            shouty = new WebShouty();
+        } else {
+            shouty = new DomainShouty();
+        }
+    }
 
     @Given("^Lucy is (\\d+)m from Sean$")
     public void lucy_is_m_from_Sean(int distanceInMetres) throws Throwable {
