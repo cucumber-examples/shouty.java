@@ -31,6 +31,11 @@ public class DomainShouty implements Shouty {
         return personCalled(personName).getMessagesHeard();
     }
 
+    @Override
+    public void stop() {
+        // no-op
+    }
+
     private Person personCalled(String personName) {
         Person person = people.get(personName);
 

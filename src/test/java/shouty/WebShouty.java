@@ -57,4 +57,15 @@ public class WebShouty implements Shouty {
         List<WebElement> messageElements = browser.findElements(By.cssSelector(".messages li"));
         return messageElements.stream().map(WebElement::getText).collect(toList());
     }
+
+    @Override
+    public void stop() {
+        browser.close();
+
+        try {
+            server.stop();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

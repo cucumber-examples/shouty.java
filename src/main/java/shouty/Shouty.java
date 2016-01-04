@@ -8,4 +8,7 @@ public interface Shouty {
     void shout(String personName, String message);
 
     List<String> getMessagesHeardBy(String personName);
+
+    // TODO: Move this to a different interface - it's not domain logic
+    void stop();
 }
