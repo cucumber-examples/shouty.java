@@ -1,5 +1,6 @@
 package shouty;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -25,5 +26,11 @@ public class ShoutSteps {
     @Then("^Lucy should hear nothing$")
     public void lucy_should_hear_nothing() throws Throwable {
         assertEquals(emptyList(), shouty.getMessagesHeardBy("Lucy"));
+    }
+
+    @Then("^Lucy should hear Sean’s shout$")
+    public void lucy_should_hear_Sean_s_shout() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
     }
 }
