@@ -30,4 +30,10 @@ public class ShoutSteps {
         List<String> messages = shouty.getMessagesHeardBy("Linda");
         assertEquals(emptyList(), messages);
     }
+
+    @Then("^Linda should hear Fred’s shout$")
+    public void lindaShouldHearFredSShout() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
 }
