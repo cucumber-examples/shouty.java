@@ -24,8 +24,16 @@ public class Shouty {
     }
 
     public void shout(String personName, String message) {
+        Person shouter = getPersonCalled(personName);
+        int shouterLocation = shouter.getLocation();
+
         for (Person person : people.values()) {
-            person.hear(message);
+            int listenerLocation = person.getLocation();
+            int distance = Math.abs(shouterLocation - listenerLocation);
+
+            if (distance <= 1000) {
+                person.hear(message);
+            }
         }
     }
 

@@ -18,4 +18,8 @@ public class Person {
     public List<String> getMessagesHeard() {
         return messagesHeard;
     }
+
+    public int getLocation() {
+        return location;
+    }
 }
