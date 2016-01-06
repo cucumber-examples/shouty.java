@@ -1,41 +1,37 @@
 package shouty;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Shouty {
-
-    Map<String, Integer> locations = new HashMap<String, Integer>();
-    Map<String, List<String>> shouts = new HashMap<String, List<String>>();
+    private Map<String, Person> people = new HashMap();
 
     public void setLocation(String personName, int location) {
-        locations.put(personName, location);
+        getPersonCalled(personName).setLocation(location);
     }
 
-    public int getDistance(String personName1, String personName2)
-    {
-        if (!locations.containsKey(personName1) || !locations.containsKey(personName2))
-            return Integer.MAX_VALUE;
+    private Person getPersonCalled(String personName) {
+        Person person = people.get(personName);
 
-        return Math.abs(locations.get(personName1) - locations.get(personName2));
+        if (person == null) {
+            person = new Person();
+            people.put(personName, person);
+        }
+
+        return person;
     }
 
     public void shout(String personName, String message) {
-        for (String person: locations.keySet())
-        {
-            if (!personName.equals(person) && getDistance(personName, person)) {
-                if (shouts.containsKey(person)) {
-                    List<String> personShouts = shouts.get(person);
-                    personShouts.add(message);
-                    shouts.put(person, personShouts);
-                }
-            }
+        for (Person person : people.values()) {
+            person.hear(message);
         }
     }
 
     public List<String> getMessagesHeardBy(String personName) {
-        if (shouts.containsKey(personName))
-            return shouts.get(personName);
-        else
-            return Collections.emptyList();
+
+        Person person = getPersonCalled(personName);
+        return person.getMessagesHeard();
     }
 }
