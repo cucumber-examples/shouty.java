@@ -1,6 +1,5 @@
 package shouty;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -13,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ShoutSteps {
 
-    private final Shouty shouty = new Shouty();
+    private final Shouty shouty = new DomainShouty();
 
     @Given("^Linda is (\\d+)m away from Fred$")
     public void linda_is_m_away_from_Fred(int distanceInMetres) throws Throwable {
