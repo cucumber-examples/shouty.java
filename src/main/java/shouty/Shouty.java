@@ -30,6 +30,7 @@ public class Shouty {
     }
 
     public List<String> getMessagesHeardBy(String personName) {
+
         Person person = getPersonCalled(personName);
         return person.getMessagesHeard();
     }
