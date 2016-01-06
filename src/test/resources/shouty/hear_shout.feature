@@ -15,7 +15,6 @@ Feature: Hear Shout
     When Fred shouts
     Then Linda should hear nothing
 
-  @focus
   Scenario: In range shout is heard
     Given Linda is 800m away from Fred
     When Fred shouts
