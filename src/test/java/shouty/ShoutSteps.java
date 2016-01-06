@@ -8,6 +8,7 @@ import cucumber.api.java.en.When;
 import java.util.List;
 
 import static java.util.Collections.emptyList;
+import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
 
 public class ShoutSteps {
@@ -33,7 +34,7 @@ public class ShoutSteps {
 
     @Then("^Linda should hear Fred’s shout$")
     public void lindaShouldHearFredSShout() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        List<String> messages = shouty.getMessagesHeardBy("Linda");
+        assertEquals(singletonList("Free bagels!"), messages);
     }
 }
