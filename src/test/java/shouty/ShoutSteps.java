@@ -12,7 +12,15 @@ import static org.junit.Assert.assertEquals;
 
 public class ShoutSteps {
 
-    private final Shouty shouty = new DomainShouty();
+    private final Shouty shouty;
+
+    public ShoutSteps() {
+        if ("web".equals(System.getProperty("shouty.testDepth"))) {
+            shouty = new WebShouty();
+        } else {
+            shouty = new DomainShouty();
+        }
+    }
 
     @Given("^Linda is (\\d+)m away from Fred$")
     public void linda_is_m_away_from_Fred(int distanceInMetres) throws Throwable {
