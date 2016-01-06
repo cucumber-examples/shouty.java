@@ -20,11 +20,15 @@ public class Shouty {
     }
 
     public void shout(String personName, String message) {
-        if (shouts.containsKey(personName))
+        for (String person: locations.keySet())
         {
-            List<String> personShouts = shouts.get(personName);
-            personShouts.add(message);
-            shouts.put(personName, personShouts);
+            if (!personName.equals(person) && getDistance(personName, person)) {
+                if (shouts.containsKey(person)) {
+                    List<String> personShouts = shouts.get(person);
+                    personShouts.add(message);
+                    shouts.put(person, personShouts);
+                }
+            }
         }
     }
 
