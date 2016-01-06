@@ -5,6 +5,11 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import java.util.List;
+
+import static java.util.Collections.emptyList;
+import static org.junit.Assert.assertEquals;
+
 public class ShoutSteps {
 
     private final Shouty shouty = new Shouty();
@@ -22,7 +27,7 @@ public class ShoutSteps {
 
     @Then("^Linda should hear nothing$")
     public void linda_should_hear_nothing() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        List<String> messages = shouty.getMessagesHeardBy("Linda");
+        assertEquals(emptyList(), messages);
     }
 }
