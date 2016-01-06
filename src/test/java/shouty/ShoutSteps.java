@@ -1,5 +1,6 @@
 package shouty;
 
+import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -43,5 +44,10 @@ public class ShoutSteps {
     public void lindaShouldHearFredSShout() throws Throwable {
         List<String> messages = shouty.getMessagesHeardBy("Linda");
         assertEquals(singletonList("Free bagels!"), messages);
+    }
+
+    @After
+    public void cleanUpJettyAndSelenium() {
+        shouty.stop();
     }
 }

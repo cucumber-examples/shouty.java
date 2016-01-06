@@ -8,4 +8,6 @@ public interface Shouty {
     void shout(String personName, String message);
 
     List<String> getMessagesHeardBy(String personName);
+
+    void stop();
 }

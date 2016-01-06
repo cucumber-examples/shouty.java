@@ -62,4 +62,14 @@ public class WebShouty implements Shouty {
 
         return messages;
     }
+
+    @Override
+    public void stop() {
+        browser.close();
+        try {
+            server.stop();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
