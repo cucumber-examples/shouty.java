@@ -5,11 +5,10 @@ import java.util.List;
 
 public class Shouty {
 
-	private List<String> messages = new ArrayList<String>();
+	private int range = 0;
 
 	public void setMaxRange(int distance) {
-		// TODO Auto-generated method stub
-
+		this.range  = distance;
 	}
 	// This is where we'll write the code of our Shouty app
 
@@ -19,10 +18,10 @@ public class Shouty {
 	}
 
 	public String[] getMessagesFor(String name) {
-		return messages.toArray(new String[messages.size()]);
+		return User.findUserByName(name).getMessages();
 	}
 
 	public void send(String name, String message) {
-		messages.add(message);
+		User.sendIfWithinRange(message, User.findUserByName(name).getLocation(), range);
 	}
 }
