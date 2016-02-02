@@ -14,6 +14,7 @@ public class ShoutSteps {
 	@Before
 	public void setUp() {
 		shouty = new Shouty();
+		User.restart();
 	}
 
 	@Given("^maximum range is (\\d+) feet$")

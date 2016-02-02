@@ -12,6 +12,10 @@ public class User {
 	private List<String> messages = new ArrayList<String>();
 	private int location;
 
+	public static void restart() {
+		users.clear();
+	}
+
 	public User(String name) {
 		this.name = name;
 		users.put(name, this);
