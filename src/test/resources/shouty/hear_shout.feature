@@ -12,5 +12,5 @@ Feature: Hear Shout
     Then I should have the following items in my cupboard:
       | item      | amount |
       | apples    | 3      |
-      | cucumbers | 9      |
+      | cucumbers | 99     |
       | steak     | 5      |
