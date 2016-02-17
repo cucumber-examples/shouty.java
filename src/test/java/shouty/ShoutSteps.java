@@ -10,8 +10,12 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class ShoutSteps {
+	private final Shopper shopper;
+	
 	@Autowired
-	private Shopper shopper;
+	public ShoutSteps(Shopper shopper) {
+		this.shopper = shopper;
+	}
 
 	@Given("^a shopping list:$")
 	public void i_have_lots_of_data(List<ShoppingListItem> shoppingList) throws Throwable {
