@@ -19,7 +19,11 @@ public class Shouty {
         HashMap<String, String> result = new HashMap<String, String>();
 
         for (Map.Entry<String, String> entry: messages.entrySet()) {
-            result.put(entry.getKey(), entry.getValue());
+            String shouter = entry.getKey();
+            String message = entry.getValue();
+            int distance = locations.get(listener).distanceFrom(locations.get(shouter));
+            if (distance < MESSAGE_RANGE)
+                result.put(shouter, message);
         }
 
         return result;

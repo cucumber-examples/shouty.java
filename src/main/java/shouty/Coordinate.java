@@ -10,9 +10,7 @@ public class Coordinate {
   }
 
   public int distanceFrom(Coordinate other){
-    int xDiff = x - other.x;
-    int yDiff = y - other.y;
-
-    return (int) Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
+      // TODO: actually caluculate distance. I think we need to use pythagoras' theorem?
+      return 0;
   }
 }
