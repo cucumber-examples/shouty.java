@@ -15,13 +15,13 @@ public class Shouty {
       messages.put(person, message);
     }
 
-    public List<String> getMessagesHeardBy(String listener) {
-        List<String> messagesHeard = new ArrayList<String>();
+    public Map<String, String> getMessagesHeardBy(String listener) {
+        HashMap<String, String> result = new HashMap<String, String>();
 
-        for (Map.Entry<String, String> entry : messages.entrySet()) {
-            messagesHeard.add(entry.getValue());
+        for (Map.Entry<String, String> entry: messages.entrySet()) {
+            result.put(entry.getKey(), entry.getValue());
         }
 
-        return messagesHeard;
+        return result;
     }
 }
