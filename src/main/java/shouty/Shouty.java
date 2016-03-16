@@ -15,13 +15,17 @@ public class Shouty {
       messages.put(person, message);
     }
 
-    public List<String> getMessagesHeardBy(String listener) {
-        List<String> messagesHeard = new ArrayList<String>();
+    public Map<String, String> getMessagesHeardBy(String listener) {
+        HashMap<String, String> result = new HashMap<String, String>();
 
-        for (Map.Entry<String, String> entry : messages.entrySet()) {
-            messagesHeard.add(entry.getValue());
+        for (Map.Entry<String, String> entry: messages.entrySet()) {
+            String shouter = entry.getKey();
+            String message = entry.getValue();
+            int distance = locations.get(listener).distanceFrom(locations.get(shouter));
+            if (distance < MESSAGE_RANGE)
+                result.put(shouter, message);
         }
 
-        return messagesHeard;
+        return result;
     }
 }

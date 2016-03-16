@@ -24,8 +24,8 @@ public class ShoutSteps {
       shouty.shout("Sean", ARBITRARY_MESSAGE);
   }
 
-  @Then("^Lucy should hear him$")
-  public void lucy_should_hear_him() throws Throwable {
+  @Then("^Lucy should hear Sean")
+  public void lucy_should_hear_sean() throws Throwable {
       Assert.assertEquals(1, shouty.getMessagesHeardBy("Lucy").size());
   }
 
