@@ -3,7 +3,9 @@ package shouty;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.junit.Assert;
+
+import static java.util.Collections.emptyList;
+import static org.junit.Assert.assertEquals;
 
 
 public class ShoutSteps {
@@ -27,11 +29,11 @@ public class ShoutSteps {
 
     @Then("^Lucy should hear Sean")
     public void lucy_should_hear_sean() throws Throwable {
-        Assert.assertEquals(1, shouty.getMessagesHeardBy("Lucy").size());
+        assertEquals(1, shouty.getMessagesHeardBy("Lucy").size());
     }
 
     @Then("^Lucy should hear nothing$")
     public void lucy_should_hear_nothing() throws Throwable {
-        Assert.assertEquals(0, shouty.getMessagesHeardBy("Lucy").size());
+        assertEquals(emptyList(), shouty.getMessagesHeardBy("Lucy"));
     }
 }
