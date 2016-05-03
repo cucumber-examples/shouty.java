@@ -7,9 +7,9 @@ import org.junit.Assert;
 
 
 public class ShoutSteps {
-    private final String ARBITRARY_MESSAGE = "Hello, world";
+    private static final String ARBITRARY_MESSAGE = "Hello, world";
     private final Shouty shouty = new Shouty();
-    
+
     @Given("^Lucy is at \\[(\\d+), (\\d+)\\]$")
     public void lucy_is_at(int xCoord, int yCoord) throws Throwable {
         shouty.setLocation("Lucy", new Coordinate(xCoord, yCoord));
