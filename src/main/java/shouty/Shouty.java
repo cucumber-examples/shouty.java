@@ -3,7 +3,7 @@ package shouty;
 import java.util.*;
 
 public class Shouty {
-    private final int MESSAGE_RANGE = 1000;
+    private static final int MESSAGE_RANGE = 1000;
     private Map<String, Coordinate> locations = new HashMap<String, Coordinate>();
     private Map<String, String> messages = new HashMap<String, String>();
 
