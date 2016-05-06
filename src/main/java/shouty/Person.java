@@ -3,24 +3,24 @@ package shouty;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Person {
+class Person {
 
     private int location;
     private List<String> messagesHeard = new ArrayList<String>();
 
-    public void hear(String message) {
+    void hear(String message) {
         messagesHeard.add(message);
     }
 
-    public void setLocation(int location) {
+    void setLocation(int location) {
         this.location = location;
     }
 
-    public List<String> getMessagesHeard() {
+    List<String> getMessagesHeard() {
         return messagesHeard;
     }
 
-    public int getLocation() {
+    int getLocation() {
         return location;
     }
 }

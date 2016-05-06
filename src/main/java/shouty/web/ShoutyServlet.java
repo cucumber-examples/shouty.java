@@ -15,9 +15,9 @@ import java.util.regex.Pattern;
 
 public class ShoutyServlet extends HttpServlet {
 
-    public static final Pattern PERSON_PAGE_PATTERN = Pattern.compile("/people/([^/]+)");
-    public static final Pattern MOVE_PATTERN = Pattern.compile("/people/([^/]+)/move");
-    public static final Pattern CREATE_SHOUT_PATTERN = Pattern.compile("/people/([^/]+)/shouts");
+    private static final Pattern PERSON_PAGE_PATTERN = Pattern.compile("/people/([^/]+)");
+    private static final Pattern MOVE_PATTERN = Pattern.compile("/people/([^/]+)/move");
+    private static final Pattern CREATE_SHOUT_PATTERN = Pattern.compile("/people/([^/]+)/shouts");
 
     private final Shouty shouty = new DomainShouty();
 
