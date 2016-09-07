@@ -42,7 +42,7 @@ In IntelliJ
 
 Then browse to the `pom.xml` file in the directory where you downloaded `shouty.java` and open the pom file. The project should now load.
 
-## Run the tests
+## Run the tests
 
 In Eclipse:
 
