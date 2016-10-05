@@ -17,6 +17,8 @@ public class ShoutSteps {
     public ShoutSteps() throws Exception {
         if("selenium".equals(System.getProperty("automation"))) {
             shouty = new SeleniumShouty();
+        } else if("soap".equals(System.getProperty("automation"))) {
+            shouty = new SoapShouty();
         } else {
             shouty = new DomainShouty();
         }
