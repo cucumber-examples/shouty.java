@@ -1,7 +1,7 @@
 package shouty.web;
 
 import shouty.DomainShouty;
-import shouty.Shouty;
+import shouty.ShoutyApi;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +19,15 @@ public class ShoutyServlet extends HttpServlet {
     private static final Pattern MOVE_PATTERN = Pattern.compile("/people/([^/]+)/move");
     private static final Pattern CREATE_SHOUT_PATTERN = Pattern.compile("/people/([^/]+)/shouts");
 
-    private final Shouty shouty = new DomainShouty();
+    private final ShoutyApi shoutyApi;
+
+    public ShoutyServlet() {
+        this(new DomainShouty());
+    }
+
+    public ShoutyServlet(ShoutyApi shoutyApi) {
+        this.shoutyApi = shoutyApi;
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Matcher matcher = PERSON_PAGE_PATTERN.matcher(request.getPathInfo());
@@ -33,7 +41,7 @@ public class ShoutyServlet extends HttpServlet {
                     "  <input type=text name=message id=message>\n" +
                     "</form>\n", personName);
             response.getWriter().print("<ul class=messages>\n");
-            for (String message : shouty.getMessagesHeardBy(personName)) {
+            for (String message : shoutyApi.getMessagesHeardBy(personName)) {
                 response.getWriter().format("<li>%s</li>\n", message);
 
             }
@@ -49,12 +57,12 @@ public class ShoutyServlet extends HttpServlet {
             String personName = moveMatcher.group(1);
             String locationString = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8")).readLine();
             int location = Integer.parseInt(locationString);
-            shouty.setLocation(personName, location);
+            shoutyApi.setLocation(personName, location);
             response.setStatus(HttpServletResponse.SC_CREATED); // 201
         } else if (createShoutMatcher.matches()) {
             String personName = createShoutMatcher.group(1);
             String message = request.getParameter("message");
-            shouty.shout(personName, message);
+            shoutyApi.shout(personName, message);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
             response.getWriter().format("Not found: %s", request.getPathInfo());

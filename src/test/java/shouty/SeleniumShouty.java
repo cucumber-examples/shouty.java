@@ -8,7 +8,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import shouty.web.ShoutyWebServer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,18 +16,17 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class SeleniumShouty implements Shouty {
+public class SeleniumShouty implements ShoutyApi {
     private final Map<String, WebDriver> browsers = new HashMap<String, WebDriver>();
-    private final ShoutyWebServer server;
+    private final int port;
 
-    public SeleniumShouty() throws Exception {
-        server = new ShoutyWebServer(8090);
-        server.start();
+    public SeleniumShouty(int port) {
+        this.port = port;
     }
 
     @Override
     public void setLocation(String personName, int locationInMetres) {
-        HttpRequestWithBody post = Unirest.post("http://localhost:8090/people/" + personName + "/move");
+        HttpRequestWithBody post = Unirest.post(url("/people/" + personName + "/move"));
         post.body(String.valueOf(locationInMetres));
         try {
             HttpResponse<String> response = post.asString();
@@ -41,7 +39,7 @@ public class SeleniumShouty implements Shouty {
     @Override
     public void shout(String shouterName, String message) {
         WebDriver browser = findOrCreateBrowser(shouterName);
-        browser.get("http://localhost:8090/people/" + shouterName);
+        browser.get(url("/people/" + shouterName));
         WebElement messageField = browser.findElement(By.id("message"));
         messageField.sendKeys(message);
         messageField.submit();
@@ -50,7 +48,7 @@ public class SeleniumShouty implements Shouty {
     @Override
     public List<String> getMessagesHeardBy(String personName) {
         WebDriver browser = findOrCreateBrowser(personName);
-        browser.get("http://localhost:8090/people/" + personName);
+        browser.get(url("/people/" + personName));
         List<WebElement> messageElements = browser.findElements(By.cssSelector(".messages li"));
         // TODO: Use Java 8 lambdas
         List<String> messages = new ArrayList<>();
@@ -60,15 +58,13 @@ public class SeleniumShouty implements Shouty {
         return messages;
     }
 
-    @Override
+    private String url(String path) {
+        return "http://localhost:" + port + path;
+    }
+
     public void stop() {
         for (WebDriver browser : browsers.values()) {
             browser.close();
-        }
-        try {
-            server.stop();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
     }
 

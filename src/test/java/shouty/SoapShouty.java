@@ -10,18 +10,14 @@ import java.net.URL;
 import java.util.List;
 
 
-public class SoapShouty implements Shouty {
-    private final Endpoint endpoint;
+public class SoapShouty implements ShoutyApi {
     private final ShoutyWS shouty;
 
-    public SoapShouty() throws Exception {
-        endpoint = Endpoint.create(new ShoutyWebService());
-        endpoint.publish("http://localhost:9999/ws/shouty");
-
-        URL url = new URL("http://localhost:9999/ws/shouty?wsdl");
+    public SoapShouty(String baseUrl) throws Exception {
+        URL url = new URL(baseUrl + "?wsdl");
         QName qname = new QName("http://web.shouty/", "ShoutyWebServiceService");
 
-        Service service =  Service.create(url, qname);
+        Service service = Service.create(url, qname);
         shouty = service.getPort(ShoutyWS.class);
     }
 
@@ -33,21 +29,10 @@ public class SoapShouty implements Shouty {
     @Override
     public void shout(String shouterName, String message) {
         shouty.shout(shouterName, message);
-
     }
 
     @Override
     public List<String> getMessagesHeardBy(String personName) {
         return shouty.getMessagesHeardBy(personName);
     }
-
-    @Override
-    public void stop() {
-        try {
-            endpoint.stop();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }

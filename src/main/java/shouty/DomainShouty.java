@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DomainShouty implements Shouty {
+public class DomainShouty implements ShoutyApi {
 
     private Map<String, Person> people = new HashMap<String, Person>();
 
@@ -15,7 +15,7 @@ public class DomainShouty implements Shouty {
 
     private Person person(String personName) {
         Person person = people.get(personName);
-        if(person == null) {
+        if (person == null) {
             people.put(personName, person = new Person());
         }
         return person;
@@ -38,10 +38,5 @@ public class DomainShouty implements Shouty {
     @Override
     public List<String> getMessagesHeardBy(String personName) {
         return person(personName).getMessagesHeard();
-    }
-
-    @Override
-    public void stop() {
-        // no-op
     }
 }
