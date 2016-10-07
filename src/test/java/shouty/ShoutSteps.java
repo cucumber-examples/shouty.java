@@ -21,7 +21,6 @@ public class ShoutSteps {
     private final ShoutyServer shoutyServer;
 
     public ShoutSteps() throws Exception {
-        System.setProperty("automation", "selenium");
         if ("selenium".equals(System.getProperty("automation"))) {
             int port = 8090;
             shoutyApi = new SeleniumShouty(port);
