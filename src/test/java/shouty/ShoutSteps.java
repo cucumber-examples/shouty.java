@@ -5,11 +5,8 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import shouty.web.ShoutySoapServer;
 import shouty.web.ShoutyWebServer;
-import shouty.web.ShoutyWebService;
 
-import javax.xml.ws.Endpoint;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -17,31 +14,26 @@ import static org.junit.Assert.assertEquals;
 
 public class ShoutSteps {
 
-    private final ShoutyApi shoutyApi;
-    private final ShoutyServer shoutyServer;
+    private ShoutyApi shoutyApi;
+    private ShoutyServer shoutyServer;
 
-    public ShoutSteps() throws Exception {
+    @Before
+    public void startServer() throws Exception {
+        System.setProperty("automation", "soap");
         if ("selenium".equals(System.getProperty("automation"))) {
             int port = 8090;
             shoutyApi = new SeleniumShouty(port);
-            shoutyServer = new ShoutyWebServer(port, new DomainShouty());
+            shoutyServer = new ShoutyWebServer(port);
         } else if ("soap".equals(System.getProperty("automation"))) {
-            int port = 8091;
-            Endpoint endpoint = Endpoint.create(new ShoutyWebService(new DomainShouty()));
-            String baseUrl = "http://localhost:" + port + "/ws/shouty";
-            endpoint.publish(baseUrl);
-
-            shoutyApi = new SoapShouty(baseUrl);
-            shoutyServer = new ShoutySoapServer(endpoint);
+            int port = 8090;
+            ShoutyWebServer shoutyWebServer = new ShoutyWebServer(port);
+            shoutyWebServer.start();
+            shoutyApi = new SoapShouty(shoutyWebServer.getWsUrl());
+            shoutyServer = shoutyWebServer;
         } else {
             shoutyApi = new DomainShouty();
             shoutyServer = new NullServer();
         }
-    }
-
-    @Before
-    public void startServer() {
-        shoutyServer.start();
     }
 
     @After
