@@ -38,7 +38,7 @@ public class ShoutyWebServer implements ShoutyServer {
     }
 
     public String getUrl() {
-        return getenv("URL", "http://localhost:" + port);
+        return "http://localhost:" + port;
     }
 
     private Server createServer(int port) {
@@ -83,15 +83,15 @@ public class ShoutyWebServer implements ShoutyServer {
     public static void main(String[] args) throws Exception {
         Integer port = Integer.valueOf(getenv("PORT", "8090"));
         ShoutyWebServer shoutyServer = new ShoutyWebServer(port);
-        System.out.println("***************************** Starting server on port " + port);
+        System.out.println("*** Starting server on port " + port);
         shoutyServer.start();
-        System.out.println("Listening on " + shoutyServer.getWsUrl());
+        System.out.println("*** Listening on " + shoutyServer.getWsUrl());
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
-                System.out.println("Stopping server...");
+                System.out.println("*** Stopping server...");
                 shoutyServer.stop();
-                System.out.println("Stopped");
+                System.out.println("*** Stopped");
             }
         });
     }
