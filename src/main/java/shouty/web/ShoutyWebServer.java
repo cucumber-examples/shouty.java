@@ -81,10 +81,11 @@ public class ShoutyWebServer implements ShoutyServer {
     }
 
     public static void main(String[] args) throws Exception {
-        ShoutyWebServer shoutyServer = new ShoutyWebServer(Integer.valueOf(getenv("PORT", "8090")));
-        System.out.println("Starting server...");
+        Integer port = Integer.valueOf(getenv("PORT", "8090"));
+        ShoutyWebServer shoutyServer = new ShoutyWebServer(port);
+        System.out.println("Starting server on port " + port);
         shoutyServer.start();
-        System.out.println("Started on " + shoutyServer.getWsUrl());
+        System.out.println("Listening on " + shoutyServer.getWsUrl());
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
