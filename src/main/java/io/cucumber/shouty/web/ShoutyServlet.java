@@ -40,18 +40,6 @@ public class ShoutyServlet extends HttpServlet {
                     .with("personName", personName)
                     .with("messages", shoutyApi.getMessagesHeardBy(personName))
                     .render(request, response);
-
-//            response.setContentType("text/html");
-//            response.setStatus(HttpServletResponse.SC_OK);
-//            response.getWriter().format("" +
-//                    "<form method=post action=/people/%s/shouts>\n" +
-//                    "  <input type=text name=message id=message>\n" +
-//                    "</form>\n", personName);
-//            response.getWriter().print("<ul class=messages>\n");
-//            for (String message : shoutyApi.getMessagesHeardBy(personName)) {
-//                response.getWriter().format("<li>%s</li>\n", message);
-//            }
-//            response.getWriter().print("</ul>\n");
         }
     }
 
@@ -71,7 +59,7 @@ public class ShoutyServlet extends HttpServlet {
             String message = request.getParameter("message");
             shoutyApi.shout(personName, message);
 
-            response.setStatus(HttpServletResponse.SC_CREATED); // 201
+            response.sendRedirect(request.getHeader("referer"));
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
             response.getWriter().format("Not found: %s", request.getPathInfo());
