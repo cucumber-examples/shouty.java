@@ -22,7 +22,7 @@ public class ShoutyServlet extends HttpServlet {
     private final ShoutyApi shoutyApi;
 
     public ShoutyServlet() {
-        this(new DomainShouty());
+        this(new DomainShouty(DomainShouty.DeliveryMode.PUSH));
     }
 
     public ShoutyServlet(ShoutyApi shoutyApi) {
@@ -33,7 +33,6 @@ public class ShoutyServlet extends HttpServlet {
         Matcher matcher = PERSON_PAGE_PATTERN.matcher(request.getPathInfo());
         if (matcher.matches()) {
             String personName = matcher.group(1);
-
             response.setContentType("text/html");
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().format("" +
@@ -43,7 +42,6 @@ public class ShoutyServlet extends HttpServlet {
             response.getWriter().print("<ul class=messages>\n");
             for (String message : shoutyApi.getMessagesHeardBy(personName)) {
                 response.getWriter().format("<li>%s</li>\n", message);
-
             }
             response.getWriter().print("</ul>\n");
         }
@@ -58,11 +56,14 @@ public class ShoutyServlet extends HttpServlet {
             String locationString = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8")).readLine();
             int location = Integer.parseInt(locationString);
             shoutyApi.setLocation(personName, location);
+
             response.setStatus(HttpServletResponse.SC_CREATED); // 201
         } else if (createShoutMatcher.matches()) {
             String personName = createShoutMatcher.group(1);
             String message = request.getParameter("message");
             shoutyApi.shout(personName, message);
+
+            response.setStatus(HttpServletResponse.SC_CREATED); // 201
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
             response.getWriter().format("Not found: %s", request.getPathInfo());

@@ -20,10 +20,10 @@ public class ShoutyWebServer implements ShoutyServer {
     private final ShoutyWebService webService;
     private final ServletContextHandler servletContextHandler;
 
-    public ShoutyWebServer(int port) {
+    public ShoutyWebServer(int port, DomainShouty.DeliveryMode deliveryMode) {
         this.port = port;
 
-        DomainShouty shoutyApi = new DomainShouty();
+        DomainShouty shoutyApi = new DomainShouty(deliveryMode);
         webService = new ShoutyWebService(shoutyApi);
 
         servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -82,7 +82,8 @@ public class ShoutyWebServer implements ShoutyServer {
 
     public static void main(String[] args) throws Exception {
         Integer port = Integer.valueOf(getenv("PORT", "8090"));
-        ShoutyWebServer shoutyServer = new ShoutyWebServer(port);
+        DomainShouty.DeliveryMode deliveryMode = DomainShouty.DeliveryMode.valueOf(getenv("DELIVERY_MODE", "PUSH"));
+        ShoutyWebServer shoutyServer = new ShoutyWebServer(port, deliveryMode);
         System.out.println("*** Starting server on port " + port);
         shoutyServer.start();
         System.out.println("*** Listening on " + shoutyServer.getWsUrl());

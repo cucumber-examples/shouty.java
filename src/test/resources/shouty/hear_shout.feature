@@ -19,3 +19,9 @@ Feature: Hear Shout
     Given Lucy is 900m from Sean
     When Sean shouts
     Then Lucy should hear Sean's shout
+
+  Scenario: Message appears after moving into range
+    Given Lucy is 1100m from Sean
+    And Sean has shouted
+    When Lucy walks up to Sean
+    Then Lucy should hear Sean's shout

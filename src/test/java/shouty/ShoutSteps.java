@@ -16,23 +16,25 @@ public class ShoutSteps {
 
     private ShoutyApi shoutyApi;
     private ShoutyServer shoutyServer;
+    private int seansLocation;
 
     @Before
     public void startServer() throws Exception {
-        System.setProperty("automation", "selenium");
+        System.setProperty("automation", "soap");
+        DomainShouty.DeliveryMode deliveryMode = DomainShouty.DeliveryMode.PULL;
         if ("selenium".equals(System.getProperty("automation"))) {
             int port = 8090;
             shoutyApi = new SeleniumShouty(port);
-            shoutyServer = new ShoutyWebServer(port);
+            shoutyServer = new ShoutyWebServer(port, deliveryMode);
             shoutyServer.start();
         } else if ("soap".equals(System.getProperty("automation"))) {
             int port = 8090;
-            ShoutyWebServer shoutyWebServer = new ShoutyWebServer(port);
+            ShoutyWebServer shoutyWebServer = new ShoutyWebServer(port, deliveryMode);
             shoutyWebServer.start();
             shoutyApi = new SoapShouty(shoutyWebServer.getWsUrl());
             shoutyServer = shoutyWebServer;
         } else {
-            shoutyApi = new DomainShouty();
+            shoutyApi = new DomainShouty(deliveryMode);
             shoutyServer = new NullServer();
             shoutyServer.start();
         }
@@ -49,12 +51,23 @@ public class ShoutSteps {
     @Given("^Lucy is (\\d+)m from Sean$")
     public void lucy_is_m_from_Sean(int distanceInMetres) throws Throwable {
         shoutyApi.setLocation("Lucy", 0);
-        shoutyApi.setLocation("Sean", distanceInMetres);
+        seansLocation = distanceInMetres;
+        shoutyApi.setLocation("Sean", seansLocation);
+    }
+
+    @Given("^Sean has shouted$")
+    public void sean_has_shouted() throws Throwable {
+        shoutyApi.shout("Sean", "Free bagels!");
     }
 
     @When("^Sean shouts$")
     public void sean_shouts() throws Throwable {
         shoutyApi.shout("Sean", "Free bagels!");
+    }
+
+    @When("^Lucy walks up to Sean$")
+    public void lucy_walks_up_to_Sean() throws Throwable {
+        shoutyApi.setLocation("Lucy", seansLocation);
     }
 
     @Then("^Lucy should hear nothing$")
