@@ -21,6 +21,11 @@ public class Shouty implements ShoutyApi {
     }
 
     @Override
+    public int getLocation(String personName) {
+        return shoutyApi.getLocation(personName);
+    }
+
+    @Override
     @WebMethod
     public void shout(String personName, String message) {
         shoutyApi.shout(personName, message);

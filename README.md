@@ -56,10 +56,12 @@ Can you think of a 3rd approach? (Direct access)
 * [x]Start both WS and Web on the same server
   * [x] See https://gist.github.com/hamnis/6171880
 * [x] Deploy to Heroku or DO
-* [-] Add server push (EventSource) or simply poll every second (ugh)
+* [ ] Add server push (EventSource) or simply poll every second (ugh)
 * [x] Inject same DomainShouty into WS and Web (obviously)
 * [ ] Add form to set location with input field
-* [ ] Show name and location in UI
-* [ ] Fix redirect to referer for shout and setLocation
+* [x] Show name and location in UI
+* [ ] Some basic styling (font, color, position)
+* [x] Fix redirect to referer for shout
+* [ ] Fix redirect to referer for setLocation
 * [x] Change namespace from web.cucumber to io.cucumber.shouty
 * [x] Set up DNS shouty.cucumber.io

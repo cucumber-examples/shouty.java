@@ -37,6 +37,11 @@ public class SeleniumShouty implements ShoutyApi {
     }
 
     @Override
+    public int getLocation(String personName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void shout(String shouterName, String message) {
         WebDriver browser = findOrCreateBrowser(shouterName);
         browser.get(url("/people/" + shouterName));

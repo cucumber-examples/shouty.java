@@ -30,6 +30,11 @@ public class DomainShouty implements ShoutyApi {
         person(personName).setLocation(locationInMetres);
     }
 
+    @Override
+    public int getLocation(String personName) {
+        return person(personName).getLocation();
+    }
+
     private Person person(String personName) {
         Person person = people.get(personName);
         if (person == null) {

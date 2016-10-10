@@ -25,6 +25,11 @@ public class SoapShouty implements ShoutyApi {
     }
 
     @Override
+    public int getLocation(String personName) {
+        return shoutyWs.getLocation(personName);
+    }
+
+    @Override
     public void shout(String shouterName, String message) {
         shoutyWs.shout(shouterName, message);
     }

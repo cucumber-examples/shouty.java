@@ -39,6 +39,7 @@ public class ShoutyServlet extends HttpServlet {
             renderer.dispatcherFor("classpath:/person.twig.html")
                     .with("personName", personName)
                     .with("messages", shoutyApi.getMessagesHeardBy(personName))
+                    .with("location", shoutyApi.getLocation(personName))
                     .render(request, response);
         }
     }
