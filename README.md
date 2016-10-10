@@ -1,10 +1,8 @@
 # Shouty
 
-##
+Deploy:
 
-Generate code from wsdl
-
-    wsimport -keep http://shouty-java-ws.herokuapp.com/ws?wsdl
+    git push heroku shoutyws:master
 
 ## Script
 
@@ -31,7 +29,11 @@ You have two options:
 * Selenium
 * SOAP (http://shouty.cucumber.io/ws?wsdl)
 
-Start with SOAP. Should the test fail or pass?
+Start with SOAP.
+
+    wsimport -keep http://shouty.cucumber.io/ws?wsdl
+
+Should the test fail or pass?
 When a test fails, what do you want the test to tell you?
 How can you make the test tell you what the expected/actual result is?
 

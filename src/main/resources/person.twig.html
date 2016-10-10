@@ -1,0 +1,13 @@
+<h1>Shouty</h1>
+
+<h2>{{personName}}</h2>
+
+<form method=post action=/people/{{personName}}/shouts>
+    <input type=text name=message id=message>
+</form>
+
+<ul class=messages>
+    {% for message in messages %}
+    <li>{{message}}</li>
+    {% endfor %}
+</ul>

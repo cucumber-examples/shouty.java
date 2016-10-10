@@ -2,6 +2,7 @@ package io.cucumber.shouty.web;
 
 import io.cucumber.shouty.DomainShouty;
 import io.cucumber.shouty.ShoutyApi;
+import org.jtwig.web.servlet.JtwigRenderer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +20,7 @@ public class ShoutyServlet extends HttpServlet {
     private static final Pattern MOVE_PATTERN = Pattern.compile("/people/([^/]+)/move");
     private static final Pattern CREATE_SHOUT_PATTERN = Pattern.compile("/people/([^/]+)/shouts");
 
+    private final JtwigRenderer renderer = JtwigRenderer.defaultRenderer();
     private final ShoutyApi shoutyApi;
 
     public ShoutyServlet() {
@@ -33,17 +35,23 @@ public class ShoutyServlet extends HttpServlet {
         Matcher matcher = PERSON_PAGE_PATTERN.matcher(request.getPathInfo());
         if (matcher.matches()) {
             String personName = matcher.group(1);
-            response.setContentType("text/html");
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().format("" +
-                    "<form method=post action=/people/%s/shouts>\n" +
-                    "  <input type=text name=message id=message>\n" +
-                    "</form>\n", personName);
-            response.getWriter().print("<ul class=messages>\n");
-            for (String message : shoutyApi.getMessagesHeardBy(personName)) {
-                response.getWriter().format("<li>%s</li>\n", message);
-            }
-            response.getWriter().print("</ul>\n");
+
+            renderer.dispatcherFor("classpath:/person.twig.html")
+                    .with("personName", personName)
+                    .with("messages", shoutyApi.getMessagesHeardBy(personName))
+                    .render(request, response);
+
+//            response.setContentType("text/html");
+//            response.setStatus(HttpServletResponse.SC_OK);
+//            response.getWriter().format("" +
+//                    "<form method=post action=/people/%s/shouts>\n" +
+//                    "  <input type=text name=message id=message>\n" +
+//                    "</form>\n", personName);
+//            response.getWriter().print("<ul class=messages>\n");
+//            for (String message : shoutyApi.getMessagesHeardBy(personName)) {
+//                response.getWriter().format("<li>%s</li>\n", message);
+//            }
+//            response.getWriter().print("</ul>\n");
         }
     }
 

@@ -21,7 +21,7 @@ public class ShoutSteps {
 
     @Before
     public void startServer() throws Exception {
-        System.setProperty("automation", "soap");
+        System.setProperty("automation", "selenium");
         DomainShouty.DeliveryMode deliveryMode = DomainShouty.DeliveryMode.PULL;
         if ("selenium".equals(System.getProperty("automation"))) {
             int port = 8090;
