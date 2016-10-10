@@ -1,4 +1,4 @@
-package shouty;
+package io.cucumber.shouty;
 
 public class NullServer implements ShoutyServer {
     @Override

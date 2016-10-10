@@ -1,5 +1,9 @@
-package shouty.web;
+package io.cucumber.shouty.server;
 
+import io.cucumber.shouty.DomainShouty;
+import io.cucumber.shouty.ShoutyServer;
+import io.cucumber.shouty.web.ShoutyServlet;
+import io.cucumber.shouty.ws.Shouty;
 import org.eclipse.jetty.http.spi.DelegatingThreadPool;
 import org.eclipse.jetty.http.spi.JettyHttpServerProvider;
 import org.eclipse.jetty.server.Handler;
@@ -9,22 +13,20 @@ import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
-import shouty.DomainShouty;
-import shouty.ShoutyServer;
 
 import javax.xml.ws.Endpoint;
 
 public class ShoutyWebServer implements ShoutyServer {
     private final Server server;
     private final int port;
-    private final ShoutyWebService webService;
+    private final Shouty shouty;
     private final ServletContextHandler servletContextHandler;
 
     public ShoutyWebServer(int port, DomainShouty.DeliveryMode deliveryMode) {
         this.port = port;
 
         DomainShouty shoutyApi = new DomainShouty(deliveryMode);
-        webService = new ShoutyWebService(shoutyApi);
+        shouty = new Shouty(shoutyApi);
 
         servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servletContextHandler.setContextPath("/");
@@ -59,7 +61,7 @@ public class ShoutyWebServer implements ShoutyServer {
     @Override
     public void start() {
         try {
-            Endpoint.publish(getWsUrl(), webService);
+            Endpoint.publish(getWsUrl(), shouty);
             server.start();
         } catch (Exception e) {
             throw new RuntimeException(e);

@@ -59,5 +59,5 @@ Can you think of a 3rd approach? (Direct access)
 * [ ] Add form to set location with input field
 * [ ] Show name and location in UI
 * [ ] Fix redirect to referer for shout and setLocation
-* [ ] Change namespace from web.cucumber to io.cucumber.shouty
+* [x] Change namespace from web.cucumber to io.cucumber.shouty
 * [x] Set up DNS shouty.cucumber.io

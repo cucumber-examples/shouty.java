@@ -1,4 +1,4 @@
-package shouty;
+package io.cucumber.shouty;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;

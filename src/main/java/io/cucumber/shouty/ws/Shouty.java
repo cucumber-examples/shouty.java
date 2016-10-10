@@ -1,16 +1,16 @@
-package shouty.web;
+package io.cucumber.shouty.ws;
 
-import shouty.ShoutyApi;
+import io.cucumber.shouty.ShoutyApi;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import java.util.List;
 
-@WebService(endpointInterface = "shouty.web.ShoutyWS")
-public class ShoutyWebService implements ShoutyApi {
+@WebService(endpointInterface = "io.cucumber.shouty.ws.ShoutyWs")
+public class Shouty implements ShoutyApi {
     private final ShoutyApi shoutyApi;
 
-    public ShoutyWebService(ShoutyApi shoutyApi) {
+    public Shouty(ShoutyApi shoutyApi) {
         this.shoutyApi = shoutyApi;
     }
 

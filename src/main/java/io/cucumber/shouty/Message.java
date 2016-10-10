@@ -1,4 +1,4 @@
-package shouty;
+package io.cucumber.shouty;
 
 public class Message {
     private int location;

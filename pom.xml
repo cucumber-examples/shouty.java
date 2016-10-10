@@ -91,7 +91,7 @@
                     <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
-                            <mainClass>shouty.web.ShoutyWebServer</mainClass>
+                            <mainClass>io.cucumber.shouty.server.ShoutyWebServer</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

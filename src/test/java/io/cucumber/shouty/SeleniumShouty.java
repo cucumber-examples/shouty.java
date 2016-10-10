@@ -1,4 +1,4 @@
-package shouty;
+package io.cucumber.shouty;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;

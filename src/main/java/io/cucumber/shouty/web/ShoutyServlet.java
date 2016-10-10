@@ -1,7 +1,7 @@
-package shouty.web;
+package io.cucumber.shouty.web;
 
-import shouty.DomainShouty;
-import shouty.ShoutyApi;
+import io.cucumber.shouty.DomainShouty;
+import io.cucumber.shouty.ShoutyApi;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
