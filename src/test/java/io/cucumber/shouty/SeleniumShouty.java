@@ -1,9 +1,5 @@
 package io.cucumber.shouty;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mashape.unirest.request.HttpRequestWithBody;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,8 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
 
 public class SeleniumShouty implements ShoutyApi {
     private final Map<String, WebDriver> browsers = new HashMap<String, WebDriver>();
@@ -26,14 +20,11 @@ public class SeleniumShouty implements ShoutyApi {
 
     @Override
     public void setLocation(String personName, int locationInMetres) {
-        HttpRequestWithBody post = Unirest.post(url("/people/" + personName + "/move"));
-        post.body(String.valueOf(locationInMetres));
-        try {
-            HttpResponse<String> response = post.asString();
-            assertEquals(201, response.getStatus());
-        } catch (UnirestException e) {
-            throw new RuntimeException(e);
-        }
+        WebDriver browser = findOrCreateBrowser(personName);
+        browser.get(url("/people/" + personName));
+        WebElement locationField = browser.findElement(By.id("location"));
+        locationField.sendKeys(String.valueOf(locationInMetres));
+        locationField.submit();
     }
 
     @Override

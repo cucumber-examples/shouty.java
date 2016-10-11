@@ -1,9 +1,13 @@
 <h1>Shouty</h1>
 
-<h2>{{personName}} @ {{location}}</h2>
+<h2>{{personName}}</h2>
+
+<form method=post action=/people/{{personName}}/move>
+    Location: <input type=text name=location id=location value="{{location}}">
+</form>
 
 <form method=post action=/people/{{personName}}/shouts>
-    <input type=text name=message id=message>
+    <input type=text name=message id=message placeholder="What's going on?">
 </form>
 
 <ul class=messages>

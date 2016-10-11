@@ -8,9 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,16 +48,14 @@ public class ShoutyServlet extends HttpServlet {
 
         if (moveMatcher.matches()) {
             String personName = moveMatcher.group(1);
-            String locationString = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8")).readLine();
+            String locationString = request.getParameter("location");
             int location = Integer.parseInt(locationString);
             shoutyApi.setLocation(personName, location);
-
-            response.setStatus(HttpServletResponse.SC_CREATED); // 201
+            response.sendRedirect(request.getHeader("referer"));
         } else if (createShoutMatcher.matches()) {
             String personName = createShoutMatcher.group(1);
             String message = request.getParameter("message");
             shoutyApi.shout(personName, message);
-
             response.sendRedirect(request.getHeader("referer"));
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404

@@ -22,7 +22,7 @@ public class ShoutSteps {
     @Before
     public void startServer() throws Exception {
         System.setProperty("automation", "selenium");
-        DomainShouty.DeliveryMode deliveryMode = DomainShouty.DeliveryMode.PULL;
+        DomainShouty.DeliveryMode deliveryMode = DomainShouty.DeliveryMode.PUSH;
         if ("selenium".equals(System.getProperty("automation"))) {
             int port = 8090;
             shoutyApi = new SeleniumShouty(port);
