@@ -1,6 +1,7 @@
 package io.cucumber.shouty.web;
 
 import io.cucumber.shouty.DomainShouty;
+import io.cucumber.shouty.Env;
 import io.cucumber.shouty.ShoutyApi;
 import org.jtwig.web.servlet.JtwigRenderer;
 
@@ -14,6 +15,7 @@ import java.util.regex.Pattern;
 
 public class ShoutyServlet extends HttpServlet {
 
+    private static final String prefix = Env.getenv("PREFIX", "");
     private static final Pattern PERSON_PAGE_PATTERN = Pattern.compile("/people/([^/]+)");
     private static final Pattern MOVE_PATTERN = Pattern.compile("/people/([^/]+)/move");
     private static final Pattern CREATE_SHOUT_PATTERN = Pattern.compile("/people/([^/]+)/shouts");
@@ -22,7 +24,7 @@ public class ShoutyServlet extends HttpServlet {
     private final ShoutyApi shoutyApi;
 
     public ShoutyServlet() {
-        this(new DomainShouty(DomainShouty.DeliveryMode.PUSH));
+        this(new DomainShouty());
     }
 
     public ShoutyServlet(ShoutyApi shoutyApi) {
@@ -38,6 +40,7 @@ public class ShoutyServlet extends HttpServlet {
                     .with("personName", personName)
                     .with("messages", shoutyApi.getMessagesHeardBy(personName))
                     .with("location", shoutyApi.getLocation(personName))
+                    .with("prefix", prefix)
                     .render(request, response);
         }
     }
@@ -48,13 +51,13 @@ public class ShoutyServlet extends HttpServlet {
 
         if (moveMatcher.matches()) {
             String personName = moveMatcher.group(1);
-            String locationString = request.getParameter("location");
+            String locationString = request.getParameter(prefix + "location");
             int location = Integer.parseInt(locationString);
             shoutyApi.setLocation(personName, location);
             response.sendRedirect(request.getHeader("referer"));
         } else if (createShoutMatcher.matches()) {
             String personName = createShoutMatcher.group(1);
-            String message = request.getParameter("message");
+            String message = request.getParameter(prefix + "message");
             shoutyApi.shout(personName, message);
             response.sendRedirect(request.getHeader("referer"));
         } else {

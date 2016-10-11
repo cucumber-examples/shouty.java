@@ -8,7 +8,7 @@ import java.util.Map;
 public class DomainShouty implements ShoutyApi {
     public static final int RANGE = 1000;
 
-    private final DeliveryMode deliveryMode;
+    private final DeliveryMode deliveryMode = DeliveryMode.valueOf(Env.getenv("DELIVERY_MODE", "PULL"));
 
     public enum DeliveryMode {
         PUSH, // The initial mode
@@ -17,13 +17,6 @@ public class DomainShouty implements ShoutyApi {
 
     private final Map<String, Person> people = new HashMap<>();
     private final List<Message> messages = new ArrayList<>();
-
-    /**
-     * @param deliveryMode feature toggle for push/pull mode
-     */
-    public DomainShouty(DeliveryMode deliveryMode) {
-        this.deliveryMode = deliveryMode;
-    }
 
     @Override
     public void setLocation(String personName, int locationInMetres) {

@@ -22,20 +22,19 @@ public class ShoutSteps {
     @Before
     public void startServer() throws Exception {
         System.setProperty("automation", "selenium");
-        DomainShouty.DeliveryMode deliveryMode = DomainShouty.DeliveryMode.PUSH;
         if ("selenium".equals(System.getProperty("automation"))) {
             int port = 8090;
             shoutyApi = new SeleniumShouty(port);
-            shoutyServer = new ShoutyWebServer(port, deliveryMode);
+            shoutyServer = new ShoutyWebServer(port);
             shoutyServer.start();
         } else if ("soap".equals(System.getProperty("automation"))) {
             int port = 8090;
-            ShoutyWebServer shoutyWebServer = new ShoutyWebServer(port, deliveryMode);
+            ShoutyWebServer shoutyWebServer = new ShoutyWebServer(port);
             shoutyWebServer.start();
             shoutyApi = new SoapShouty(shoutyWebServer.getWsUrl());
             shoutyServer = shoutyWebServer;
         } else {
-            shoutyApi = new DomainShouty(deliveryMode);
+            shoutyApi = new DomainShouty();
             shoutyServer = new NullServer();
             shoutyServer.start();
         }

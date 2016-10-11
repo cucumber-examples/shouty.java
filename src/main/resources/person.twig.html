@@ -3,14 +3,14 @@
 <h2>{{personName}}</h2>
 
 <form method=post action=/people/{{personName}}/move>
-    Location: <input type=text name=location id=location value="{{location}}">
+    Location: <input type=text name={{prefix}}location id={{prefix}}location value="{{location}}">
 </form>
 
 <form method=post action=/people/{{personName}}/shouts>
-    <input type=text name=message id=message placeholder="What's going on?">
+    <input type=text name={{prefix}}message id={{prefix}}message placeholder="What's going on?">
 </form>
 
-<ul class=messages>
+<ul class={{prefix}}messages>
     {% for message in messages %}
     <li>{{message}}</li>
     {% endfor %}

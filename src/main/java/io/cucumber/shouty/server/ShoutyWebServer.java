@@ -1,6 +1,7 @@
 package io.cucumber.shouty.server;
 
 import io.cucumber.shouty.DomainShouty;
+import io.cucumber.shouty.Env;
 import io.cucumber.shouty.ShoutyServer;
 import io.cucumber.shouty.web.ShoutyServlet;
 import io.cucumber.shouty.ws.Shouty;
@@ -22,10 +23,10 @@ public class ShoutyWebServer implements ShoutyServer {
     private final Shouty shouty;
     private final ServletContextHandler servletContextHandler;
 
-    public ShoutyWebServer(int port, DomainShouty.DeliveryMode deliveryMode) {
+    public ShoutyWebServer(int port) {
         this.port = port;
 
-        DomainShouty shoutyApi = new DomainShouty(deliveryMode);
+        DomainShouty shoutyApi = new DomainShouty();
         shouty = new Shouty(shoutyApi);
 
         servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -77,15 +78,10 @@ public class ShoutyWebServer implements ShoutyServer {
         }
     }
 
-    private static String getenv(String name, String defaultValue) {
-        String value = System.getenv(name);
-        return value != null ? value : defaultValue;
-    }
-
     public static void main(String[] args) throws Exception {
-        Integer port = Integer.valueOf(getenv("PORT", "8090"));
-        DomainShouty.DeliveryMode deliveryMode = DomainShouty.DeliveryMode.valueOf(getenv("DELIVERY_MODE", "PUSH"));
-        ShoutyWebServer shoutyServer = new ShoutyWebServer(port, deliveryMode);
+        Integer port = Integer.valueOf(Env.getenv("PORT", "8090"));
+        DomainShouty.DeliveryMode deliveryMode = DomainShouty.DeliveryMode.valueOf(Env.getenv("DELIVERY_MODE", "PUSH"));
+        ShoutyWebServer shoutyServer = new ShoutyWebServer(port);
         System.out.println("*** Starting server on port " + port);
         shoutyServer.start();
         System.out.println("*** Listening on " + shoutyServer.getWsUrl());

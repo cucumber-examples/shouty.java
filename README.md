@@ -15,18 +15,22 @@ Play around with the application.
 What business rules can you infer from the application?
 
 Instructor: Hand out the following rules
-* Can only hear withing 1000m
+* Can only hear within 1000m
+
+- Better: (Since we did the rules on Day 1)
+* Give them code with 2 scenarios
 
 What questions do you have?
 
 What happens if my neighbour shouts her dog's gone missing as I'm leaving work.
 Will I see it 30 min later when I get home from work?
 
-Can you write a Cucumber Scenario that expresses the intended behaviour?
+Can you write a new Cucumber Scenario that expresses the intended behaviour?
 
 Now that you have written a scenario, you must *automate* it.
 You have two options:
 * Selenium
+  * Link to http://www.seleniumhq.org/docs/03_webdriver.jsp
 * SOAP (http://shouty.cucumber.io/ws?wsdl)
 
 Start with SOAP.
@@ -37,10 +41,22 @@ Should the test fail or pass?
 When a test fails, what do you want the test to tell you?
 How can you make the test tell you what the expected/actual result is?
 
+Instructor - when they all have a good failing scenario, "fix it":
+    heroku config:set DELIVERY_MODE=PULL
+    # If you ever need to revert to the "buggy" implementation
+    heroku config:set DELIVERY_MODE=PUSH
+
+Is it green now? (It should be)
+
 Now let's do Selenium
 
 When they all have Selenium working, flick a switch to change some ids and classes.
-Ask them to run both suites again.
+
+    heroku config:set PREFIX=wat
+    # Unset it
+    heroku config:unset PREFIX
+
+Ask them to run both suites again. (Selenium should fail, SOAP still pass)
 
 What are the pros and cons of each approach?
 
