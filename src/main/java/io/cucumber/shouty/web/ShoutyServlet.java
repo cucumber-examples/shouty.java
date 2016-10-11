@@ -19,6 +19,7 @@ public class ShoutyServlet extends HttpServlet {
     private static final Pattern PERSON_PAGE_PATTERN = Pattern.compile("/people/([^/]+)");
     private static final Pattern MOVE_PATTERN = Pattern.compile("/people/([^/]+)/move");
     private static final Pattern CREATE_SHOUT_PATTERN = Pattern.compile("/people/([^/]+)/shouts");
+    private static final String RESET_PATH = "/reset";
 
     private final JtwigRenderer renderer = JtwigRenderer.defaultRenderer();
     private final ShoutyApi shoutyApi;
@@ -60,6 +61,8 @@ public class ShoutyServlet extends HttpServlet {
             String message = request.getParameter(prefix + "message");
             shoutyApi.shout(personName, message);
             response.sendRedirect(request.getHeader("referer"));
+        } else if (RESET_PATH.equals(request.getPathInfo())) {
+            shoutyApi.reset();
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
             response.getWriter().format("Not found: %s", request.getPathInfo());

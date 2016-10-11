@@ -37,5 +37,11 @@ public class Shouty implements ShoutyApi {
         return shoutyApi.getMessagesHeardBy(personName);
     }
 
+    @Override
+    @WebMethod
+    public void reset() {
+        shoutyApi.reset();
+    }
+
 }
 

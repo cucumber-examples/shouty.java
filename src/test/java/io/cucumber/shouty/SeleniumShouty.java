@@ -54,6 +54,11 @@ public class SeleniumShouty implements ShoutyApi {
         return messages;
     }
 
+    @Override
+    public void reset() {
+        throw new UnsupportedOperationException();
+    }
+
     private String url(String path) {
         return "http://localhost:" + port + path;
     }

@@ -38,4 +38,9 @@ public class SoapShouty implements ShoutyApi {
     public List<String> getMessagesHeardBy(String personName) {
         return shoutyWs.getMessagesHeardBy(personName);
     }
+
+    @Override
+    public void reset() {
+        shoutyWs.reset();
+    }
 }

@@ -10,4 +10,6 @@ public interface ShoutyApi {
     void shout(String shouterName, String message);
 
     List<String> getMessagesHeardBy(String personName);
+
+    void reset();
 }

@@ -79,6 +79,12 @@ public class DomainShouty implements ShoutyApi {
         }
     }
 
+    @Override
+    public void reset() {
+        people.clear();
+        messages.clear();
+    }
+
     private List<String> getPulledMessages(String personName) {
         List<String> result = new ArrayList<>();
         Person listener = person(personName);
