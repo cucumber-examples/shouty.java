@@ -31,11 +31,17 @@ Now that you have written a scenario, you must *automate* it.
 You have two options:
 * Selenium
   * Link to http://www.seleniumhq.org/docs/03_webdriver.jsp
+  * Run with `mvn test -Dautomation=selenium`
 * SOAP (http://shouty.cucumber.io/ws?wsdl)
+  * Run the `./wsdl2java` script to generate some code
 
 Start with SOAP.
 
-    wsimport -keep http://shouty.cucumber.io/ws?wsdl
+It's hard to get the "should not hear" test to pass. Why?
+State is leaking between scenarios. BAD! How can we reset state?
+
+    # http://unirest.io/java.html
+    Unirest.post("http://shouty.cucumber.io/reset").asString();
 
 Should the test fail or pass?
 When a test fails, what do you want the test to tell you?
