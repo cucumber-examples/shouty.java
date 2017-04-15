@@ -5,8 +5,8 @@ import java.util.Map;
 
 public class Shouty {
     private static final int MESSAGE_RANGE = 1000;
-    private Map<String, Coordinate> locations = new HashMap<String, Coordinate>();
-    private Map<String, String> messages = new HashMap<String, String>();
+    private Map<String, Coordinate> locations = new HashMap<>();
+    private Map<String, String> messages = new HashMap<>();
 
     public void setLocation(String person, Coordinate location) {
         locations.put(person, location);
@@ -17,7 +17,7 @@ public class Shouty {
     }
 
     public Map<String, String> getMessagesHeardBy(String listener) {
-        HashMap<String, String> result = new HashMap<String, String>();
+        HashMap<String, String> result = new HashMap<>();
 
         for (Map.Entry<String, String> entry : messages.entrySet()) {
             String shouter = entry.getKey();
