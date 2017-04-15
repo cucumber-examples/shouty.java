@@ -13,12 +13,12 @@ public class ShoutSteps {
     private static final String ARBITRARY_MESSAGE = "Hello, world";
     private final Shouty shouty = new Shouty();
 
-    @Given("^Lucy is at \\[(\\d+), (\\d+)\\]$")
+    @Given("^Lucy is at (\\d+), (\\d+)$")
     public void lucy_is_at(int xCoord, int yCoord) throws Throwable {
         shouty.setLocation("Lucy", new Coordinate(xCoord, yCoord));
     }
 
-    @Given("^Sean is at \\[(\\d+), (\\d+)\\]$")
+    @Given("^Sean is at (\\d+), (\\d+)$")
     public void sean_is_at(int xCoord, int yCoord) throws Throwable {
         shouty.setLocation("Sean", new Coordinate(xCoord, yCoord));
     }
