@@ -4,9 +4,9 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class CoordinateTest {
-    
+
     @Test
-    public void itCalculatesTheDistanceFromItself() {
+    public void it_calculates_the_distance_from_itself() {
         Coordinate a = new Coordinate(0, 0);
         assertEquals(0, a.distanceFrom(a));
     }
