@@ -6,6 +6,6 @@ import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(monochrome = true, plugin = {"pretty", "html:target/cucumber", "rerun:target/rerun.txt"}, snippets = SnippetType.CAMELCASE)
+@CucumberOptions(monochrome = true, plugin = {"pretty", "html:target/cucumber", "rerun:target/rerun.txt", "io.cucumber.pro.JsonReporter"}, snippets = SnippetType.CAMELCASE)
 public class RunCukesTest {
 }
