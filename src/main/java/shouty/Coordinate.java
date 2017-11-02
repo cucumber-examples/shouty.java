@@ -10,7 +10,9 @@ public class Coordinate {
     }
 
     public int distanceFrom(Coordinate other) {
+        double xDistance = x - other.x;
+        double yDistance = y - other.y;
         // TODO: actually caluculate distance. I think we need to use pythagoras' theorem?
-        return 0;
+        return (int) Math.hypot(xDistance, yDistance);
     }
 }
