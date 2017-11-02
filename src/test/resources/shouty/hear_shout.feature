@@ -13,3 +13,9 @@ Feature: Hear Shout
     And Sean is at 0, 1100
     When Sean shouts
     Then Lucy should hear nothing
+
+  Scenario: Out of range shout is still not heard
+    Given Lucy is at 0, 0
+    And Sean is at 0, 1500
+    When Sean shouts
+    Then Lucy should hear nothing
