@@ -10,7 +10,9 @@ public class Coordinate {
     }
 
     public int distanceFrom(Coordinate other) {
-        // TODO: actually caluculate distance. I think we need to use pythagoras' theorem?
+        // TODO: actually calculate distance between the coordinates.
+        //       e.g. return Math.abs(x - other.x);
+
         return 0;
     }
 }
