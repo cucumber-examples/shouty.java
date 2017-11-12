@@ -23,7 +23,7 @@ public class Shouty {
         shouts.get(shouter).add(shout);
     }
 
-    public Map<String, List<String>> getMessagesHeardBy(String listener) {
+    public Map<String, List<String>> getShoutsHeardBy(String listener) {
         HashMap<String, List<String> > shoutsHeard = new HashMap<String, List<String> >();
 
         for (Map.Entry<String, List<String> > entry : shouts.entrySet()) {
