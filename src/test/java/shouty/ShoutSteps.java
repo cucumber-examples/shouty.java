@@ -4,6 +4,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import static java.util.Collections.emptyList;
 import static java.util.Collections.emptyMap;
 import static org.junit.Assert.assertEquals;
 
@@ -29,11 +30,11 @@ public class ShoutSteps {
 
     @Then("^Lucy should hear Sean")
     public void lucy_should_hear_sean() throws Throwable {
-        assertEquals(1, shouty.getShoutHeardBy("Lucy").size());
+        assertEquals(1, shouty.getShoutsHeardBy("Lucy").size());
     }
 
     @Then("^Lucy should hear nothing$")
     public void lucy_should_hear_nothing() throws Throwable {
-        assertEquals(emptyMap(), shouty.getShoutHeardBy("Lucy"));
+        assertEquals(emptyMap(), shouty.getShoutsHeardBy("Lucy"));
     }
 }
