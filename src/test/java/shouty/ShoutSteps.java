@@ -3,6 +3,7 @@ package shouty;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Map;
@@ -15,19 +16,9 @@ import static org.junit.Assert.assertFalse;
 
 public class ShoutSteps {
     private static final String ARBITRARY_MESSAGE = "Hello, world";
-    private final Shouty shouty = new Shouty();
 
-    @Given("^(\\w+) is at (\\d+), (\\d+)$")
-    public void lucy_is_at(String person, int xCoord, int yCoord) throws Throwable {
-        shouty.setLocation(person, new Coordinate(xCoord, yCoord));
-    }
-
-    @Given("^people are located at$")
-    public void peopleAreLocatedAt(List<Whereabout> whereabouts) throws Exception {
-        for (Whereabout whereabout : whereabouts) {
-            shouty.setLocation(whereabout.name, new Coordinate(whereabout.x, whereabout.y));
-        }
-    }
+    @Autowired
+    private Shouty shouty;
 
     @When("^(\\w+) shouts$")
     public void shouter_shouts(String shouter) throws Throwable {
