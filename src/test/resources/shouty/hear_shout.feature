@@ -2,9 +2,11 @@ Feature: Hear Shout
 
   Shouts have a range of approximately 1000m
 
-  Scenario Outline: only hear in range shouts
+  Background:
     Given Lucy is at 0, 0
-    And Sean is at <Seans-location>
+
+  Scenario Outline: only hear in range shouts
+    Given Sean is at <Seans-location>
     When Sean shouts
     Then Lucy should hear <what-Lucy-hears>
 
@@ -16,7 +18,6 @@ Feature: Hear Shout
   Scenario: Multiple shouters
     Given people are located at
       | name  | x   | y    |
-      | Lucy  | 0   | 0    |
       | Sean  | 500 | 0    |
       | Oscar | 0   | 1100 |
     When Sean shouts
@@ -25,13 +26,11 @@ Feature: Hear Shout
     But Lucy should hear Sean
 
   Scenario: Shouters should not hear their own shouts
-    Given Lucy is at 0, 0
     When Lucy shouts
     Then Lucy should hear nothing
 
   Scenario: Multiple shouts from one person
-    Given Lucy is at 0, 0
-    And Sean is at 0, 500
+    Given Sean is at 0, 500
     When Sean shouts
     And Sean shouts
     Then Lucy should hear 2 shouts from Sean
