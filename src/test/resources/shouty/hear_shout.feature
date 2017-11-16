@@ -28,3 +28,10 @@ Feature: Hear Shout
     Given Lucy is at 0, 0
     When Lucy shouts
     Then Lucy should hear nothing
+
+  Scenario: Multiple shouts from one person
+    Given Lucy is at 0, 0
+    And Sean is at 0, 500
+    When Sean shouts
+    And Sean shouts
+    Then Lucy should hear 2 shouts from Sean

@@ -36,19 +36,25 @@ public class ShoutSteps {
 
     @Then("^(\\w+) should hear Sean")
     public void lucy_should_hear_sean(String listener) throws Throwable {
-        Map<String, String> messagesHeard = shouty.getShoutHeardBy(listener);
+        Map<String, List<String>> messagesHeard = shouty.getShoutsHeardBy(listener);
         assertTrue(messagesHeard.containsKey("Sean"));
     }
 
     @Then("^Lucy should hear nothing$")
     public void lucy_should_hear_nothing() throws Throwable {
-        assertEquals(emptyMap(), shouty.getShoutHeardBy("Lucy"));
+        assertEquals(emptyMap(), shouty.getShoutsHeardBy("Lucy"));
     }
 
     @Then("^Lucy should not hear Oscar$")
     public void lucy_should_not_hear_oscar() throws Exception {
-        Map<String, String> messagesHeard = shouty.getShoutHeardBy("Lucy");
+        Map<String, List<String>> messagesHeard = shouty.getShoutsHeardBy("Lucy");
         assertFalse(messagesHeard.containsKey("Oscar"));
     }
 
+    @Then("^Lucy should hear (\\d+) shouts from Sean$")
+    public void lucy_should_hear_shouts_from_sean(int shouts) throws Throwable {
+        Map<String, List<String>> messagesHeardBy = shouty.getShoutsHeardBy("Lucy");
+        List<String> messagesHeard = messagesHeardBy.get("Sean");
+        assertEquals(shouts, messagesHeard.size());
+    }
 }

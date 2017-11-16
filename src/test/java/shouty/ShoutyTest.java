@@ -15,6 +15,6 @@ public class ShoutyTest {
 
         shouty.shout("Lucy", "message");
 
-        assertEquals(emptyMap(), shouty.getShoutHeardBy("Lucy"));
+        assertEquals(emptyMap(), shouty.getShoutsHeardBy("Lucy"));
     }
 }
