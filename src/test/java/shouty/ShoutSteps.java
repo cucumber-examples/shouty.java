@@ -4,6 +4,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import java.util.List;
 import java.util.Map;
 
 import static java.util.Collections.emptyMap;
@@ -19,6 +20,13 @@ public class ShoutSteps {
     @Given("^(\\w+) is at (\\d+), (\\d+)$")
     public void lucy_is_at(String person, int xCoord, int yCoord) throws Throwable {
         shouty.setLocation(person, new Coordinate(xCoord, yCoord));
+    }
+
+    @Given("^people are located at$")
+    public void peopleAreLocatedAt(List<Whereabout> whereabouts) throws Exception {
+        for (Whereabout whereabout : whereabouts) {
+            shouty.setLocation(whereabout.name, new Coordinate(whereabout.x, whereabout.y));
+        }
     }
 
     @When("^(\\w+) shouts$")
