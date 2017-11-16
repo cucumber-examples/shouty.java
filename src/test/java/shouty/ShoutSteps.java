@@ -21,7 +21,7 @@ public class ShoutSteps {
         shouty.setLocation(person, new Coordinate(xCoord, yCoord));
     }
 
-    @When("^(Sean|Oscar) shouts$")
+    @When("^(\\w+) shouts$")
     public void shouter_shouts(String shouter) throws Throwable {
         shouty.shout(shouter, ARBITRARY_MESSAGE);
     }
