@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Shouty {
     private static final int MESSAGE_RANGE = 1000;
     private Map<String, Coordinate> locations = new HashMap<String, Coordinate>();
@@ -28,6 +31,8 @@ public class Shouty {
 
         for (Map.Entry<String, List<String> > entry : shouts.entrySet()) {
             String shouter = entry.getKey();
+            if(shouter.equals(listener)) continue;
+            
             List<String> personsShouts = entry.getValue();
             int distance = locations.get(listener).distanceFrom(locations.get(shouter));
             if (distance < MESSAGE_RANGE)
