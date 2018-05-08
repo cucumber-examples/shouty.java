@@ -22,7 +22,7 @@ public class ShoutSteps {
         shouty.setLocation(name, new Coordinate(xCoord, yCoord));
     }
 
-    @When("^(Sean|Oscar) shouts$")
+    @When("^(Sean|Oscar|Lucy) shouts$")
     public void sean_shouts(String name) {
         shouty.shout(name, ARBITRARY_MESSAGE);
     }

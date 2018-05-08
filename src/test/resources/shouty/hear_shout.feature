@@ -14,12 +14,16 @@ Feature: Hear Shout
     When Sean shouts
     Then Lucy should hear nothing
 
-    Scenario: Multiple shouters
-      Given Lucy is at 0, 0
-      And Sean is at 0, 500
-      And Oscar is at 1100, 0
-      When Sean shouts
-      And Oscar shouts
-      Then Lucy should not hear Oscar
-      But Lucy should hear Sean
-      
+  Scenario: Multiple shouters
+    Given Lucy is at 0, 0
+    And Sean is at 0, 500
+    And Oscar is at 1100, 0
+    When Sean shouts
+    And Oscar shouts
+    Then Lucy should not hear Oscar
+    But Lucy should hear Sean
+
+  Scenario: Lucy can't hear her own shouts
+    Given Lucy is at 0, 0
+    When Lucy shouts
+    Then Lucy should hear nothing
