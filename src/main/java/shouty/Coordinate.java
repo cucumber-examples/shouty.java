@@ -10,6 +10,6 @@ class Coordinate {
     }
 
     int distanceFrom(Coordinate other) {
-        return Math.abs(x - other.x);
+        return (int) Math.hypot(x - other.x, y - other.y);
     }
 }
