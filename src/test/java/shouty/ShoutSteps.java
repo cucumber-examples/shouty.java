@@ -1,6 +1,5 @@
 package shouty;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -20,6 +19,14 @@ public class ShoutSteps {
     @Given("^(Lucy|Sean|Oscar) is at (\\d+), (\\d+)$")
     public void lucy_is_at(String name, int xCoord, int yCoord) {
         shouty.setLocation(name, new Coordinate(xCoord, yCoord));
+    }
+
+    @Given("^people are located at$")
+    public void peopleAreLocatedAt(List<PersonLocation> personLocations) throws Exception {
+        for (int index = 0; index < personLocations.size(); index++) {
+            PersonLocation pl = personLocations.get(index);
+            shouty.setLocation(pl.name, new Coordinate(pl.x, pl.y));
+        }
     }
 
     @When("^(Sean|Oscar|Lucy) shouts$")

@@ -14,9 +14,11 @@ Feature: Hear Shout
       | 800, 800       | nothing         |
 
   Scenario: Multiple shouters
-    Given Lucy is at 0, 0
-    And Sean is at 0, 500
-    And Oscar is at 1100, 0
+    Given people are located at
+      | name  | x    | y   |
+      | Lucy  | 0    | 0   |
+      | Sean  | 0    | 500 |
+      | Oscar | 1100 | 0   |
     When Sean shouts
     And Oscar shouts
     Then Lucy should not hear Oscar
