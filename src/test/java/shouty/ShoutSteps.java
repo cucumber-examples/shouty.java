@@ -1,11 +1,16 @@
 package shouty;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import java.util.List;
+import java.util.Map;
+
 import static java.util.Collections.emptyMap;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 
 public class ShoutSteps {
@@ -17,9 +22,14 @@ public class ShoutSteps {
         shouty.setLocation(name, new Coordinate(xCoord, yCoord));
     }
 
-    @When("^Sean shouts$")
-    public void sean_shouts() {
-        shouty.shout("Sean", ARBITRARY_MESSAGE);
+    @Given("^Oscar is at (\\d+), (\\d+)$")
+    public void oscarIsAt(int arg1, int arg2) {
+        shouty.setLocation("Oscar", new Coordinate(arg1, arg2));
+    }
+
+    @When("^(Sean|Oscar) shouts$")
+    public void sean_shouts(String name) {
+        shouty.shout(name, ARBITRARY_MESSAGE);
     }
 
     @Then("^Lucy should hear Sean")
@@ -30,5 +40,11 @@ public class ShoutSteps {
     @Then("^Lucy should hear nothing$")
     public void lucy_should_hear_nothing() {
         assertEquals(emptyMap(), shouty.getShoutsHeardBy("Lucy"));
+    }
+
+    @Then("^Lucy should not hear Oscar$")
+    public void lucyShouldNotHearOscar() {
+        Map<String, List<String>> shoutsHeard = shouty.getShoutsHeardBy("Lucy");
+        assertFalse("Lucy should not hear Oscar", shoutsHeard.containsKey("Oscar"));
     }
 }
