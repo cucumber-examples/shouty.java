@@ -17,14 +17,9 @@ public class ShoutSteps {
     private static final String ARBITRARY_MESSAGE = "Hello, world";
     private final Shouty shouty = new Shouty();
 
-    @Given("^(Lucy|Sean) is at (\\d+), (\\d+)$")
+    @Given("^(Lucy|Sean|Oscar) is at (\\d+), (\\d+)$")
     public void lucy_is_at(String name, int xCoord, int yCoord) {
         shouty.setLocation(name, new Coordinate(xCoord, yCoord));
-    }
-
-    @Given("^Oscar is at (\\d+), (\\d+)$")
-    public void oscarIsAt(int arg1, int arg2) {
-        shouty.setLocation("Oscar", new Coordinate(arg1, arg2));
     }
 
     @When("^(Sean|Oscar) shouts$")
@@ -34,7 +29,9 @@ public class ShoutSteps {
 
     @Then("^Lucy should hear Sean")
     public void lucy_should_hear_sean() {
-        assertEquals(1, shouty.getShoutsHeardBy("Lucy").size());
+        Map<String, List<String>> shoutsHeard = shouty.getShoutsHeardBy("Lucy");
+        List<String> seansShouts = shoutsHeard.get("Sean");
+        assertEquals(1, seansShouts.size());
     }
 
     @Then("^Lucy should hear nothing$")
