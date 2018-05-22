@@ -13,27 +13,27 @@ public class ShoutSteps {
     private static final String ARBITRARY_MESSAGE = "Hello, world";
     private final Shouty shouty = new Shouty();
 
-    @Given("^Lucy is at (\\d+), (\\d+)$")
+    @Given("Lucy is at {int}, {int}")
     public void lucy_is_at(int xCoord, int yCoord) throws Throwable {
         shouty.setLocation("Lucy", new Coordinate(xCoord, yCoord));
     }
 
-    @Given("^Sean is at (\\d+), (\\d+)$")
+    @Given("Sean is at {int}, {int}")
     public void sean_is_at(int xCoord, int yCoord) throws Throwable {
         shouty.setLocation("Sean", new Coordinate(xCoord, yCoord));
     }
 
-    @When("^Sean shouts$")
+    @When("Sean shouts")
     public void sean_shouts() throws Throwable {
         shouty.shout("Sean", ARBITRARY_MESSAGE);
     }
 
-    @Then("^Lucy should hear Sean")
+    @Then("Lucy should hear Sean")
     public void lucy_should_hear_sean() throws Throwable {
         assertEquals(1, shouty.getShoutsHeardBy("Lucy").size());
     }
 
-    @Then("^Lucy should hear nothing$")
+    @Then("Lucy should hear nothing")
     public void lucy_should_hear_nothing() throws Throwable {
         assertEquals(emptyMap(), shouty.getShoutsHeardBy("Lucy"));
     }
