@@ -21,11 +21,6 @@ Git:
     git clone https://github.com/cucumber-ltd/shouty.java.git
     cd shouty.java
 
-Subversion:
-
-    svn checkout https://github.com/cucumber-ltd/shouty.java/branches/master shouty.java
-    cd shouty.java
-
 Or simply [download](https://github.com/cucumber-ltd/shouty.java/releases) a zip and expand it into a directory on your computer.
 
 ## Import the project
