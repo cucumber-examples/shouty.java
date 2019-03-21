@@ -22,5 +22,5 @@ jobs: # a collection of steps
             - ~/.m2
           key: shouty.java-{{ checksum "pom.xml" }}
       
-      - run: mvn package # run the actual tests
+      - run: mvn test # run the actual tests
       
