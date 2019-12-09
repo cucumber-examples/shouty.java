@@ -4,6 +4,7 @@ Feature: Hear Shout
 
   Scenario: In range shout is heard
     Given Lucy is at 0, 0
+    What is this step doing here?
     And Sean is at 0, 900
     When Sean shouts
     Then Lucy should hear Sean
