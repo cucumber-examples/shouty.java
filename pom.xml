@@ -8,16 +8,6 @@
     <packaging>jar</packaging>
     <name>Shouty</name>
 
-    <repositories>
-      <repository>
-          <id>sonatype-snapshots</id>
-          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-          <snapshots>
-              <enabled>true</enabled>
-          </snapshots>
-      </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -28,21 +18,21 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>5.4.0</version>
+            <version>5.4.2-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-spring</artifactId>
-            <version>5.4.0</version>
+            <version>5.4.2-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
-            <version>5.4.0</version>
+            <version>5.4.2-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
 
