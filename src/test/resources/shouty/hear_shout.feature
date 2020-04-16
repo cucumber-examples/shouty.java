@@ -1,15 +1,7 @@
 Feature: Hear Shout
 
-  Shouts have a range of approximately 1000m
+  Scenario: Nobody is shouting
+    Given nobody has shouted
+    When Lucy checks the Shouty app
+    Then she should hear nothing
 
-  Scenario: In range shout is heard
-    Given Lucy is at 0, 0
-    And Sean is at 0, 900
-    When Sean shouts
-    Then Lucy should hear Sean
-
-  Scenario: Out of range shout is not heard
-    Given Lucy is at 0, 0
-    And Sean is at 800, 800
-    When Sean shouts
-    Then Lucy should hear nothing
