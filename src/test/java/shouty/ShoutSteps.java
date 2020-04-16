@@ -1,12 +1,11 @@
 package shouty;
 
-import io.cucumber.java.DataTableType;
-import io.cucumber.java.DocStringType;
-import io.cucumber.java.ParameterType;
+import io.cucumber.java.BeforeStep;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import static java.lang.Thread.sleep;
 import static java.util.Collections.emptyMap;
 import static org.junit.Assert.assertEquals;
 
@@ -14,6 +13,11 @@ import static org.junit.Assert.assertEquals;
 public class ShoutSteps {
     private static final String ARBITRARY_MESSAGE = "Hello, world";
     private final Shouty shouty = new Shouty();
+
+    @BeforeStep
+    public void sleeping() throws InterruptedException {
+        sleep(2000);
+    }
 
     @Given("Lucy is at {int}, {int}")
     public void lucy_is_at(int xCoord, int yCoord) {

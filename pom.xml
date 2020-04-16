@@ -37,6 +37,34 @@
         </dependency>
 
         <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-gherkin-messages</artifactId>
+            <version>5.4.2-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-core</artifactId>
+            <version>5.4.2-SNAPSHOT</version>
+            <scope>test</scope>
+            <!--
+            Needed to enable message formatter
+            This should be removed when Cucumber-JVM drops support for gherkin vintage (Gherkin 5)
+            -->
+            <exclusions>
+                <exclusion>
+                    <groupId>io.cucumber</groupId>
+                    <artifactId>gherkin</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.cucumber</groupId>
+                    <artifactId>cucumber-gherkin-vintage</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>5.2.3.RELEASE</version>
