@@ -7,11 +7,17 @@ import java.util.List;
 
 public class ShoutyServiceWrapper {
 
-    private static final String REST_URI
-            = "https://virtserver.swaggerhub.com/EmmanuelParaskakis/Shout/1.0.0/shouts";
+    private static final String REST_ROOT_URI
+            = "https://virtserver.swaggerhub.com/smartbear/Shout/"; // 1.0.0/shouts";
 
-    public List<String> getShouts() {
-        return Unirest.get(REST_URI).asObject(new GenericType<List<String>>() {
+    private String REST_URI;
+
+    public List<Shout> getShouts() {
+        return Unirest.get(REST_URI + "/shouts").asObject(new GenericType<List<Shout>>() {
         }).getBody();
+    }
+
+    public void setAPI(String api) {
+        REST_URI = REST_ROOT_URI + api;
     }
 }

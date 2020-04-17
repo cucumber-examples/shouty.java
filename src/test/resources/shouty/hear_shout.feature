@@ -1,7 +1,25 @@
 Feature: Hear Shout
 
-  Scenario: Nobody is shouting
+  @API_1.0.0
+  Scenario: Nobody has shouted
     Given nobody has shouted
     When Lucy checks the Shouty app
     Then she should hear nothing
 
+  @API_1.1.0
+  Scenario: Somebody has shouted
+    Given somebody has shouted
+    When Lucy checks the Shouty app
+    Then she should hear 1 shout
+
+  @API_1.1.0
+  Scenario: Somebody shouts “Hello World”
+    Given somebody has shouted "Hello World"
+    When Lucy checks the Shouty app
+    Then she should hear "Hello World"
+
+  @API_1.1.0
+  Scenario: Sean shouts a message
+    Given Sean has shouted
+    When Lucy checks the Shouty app
+    Then she should hear a shout from Sean
