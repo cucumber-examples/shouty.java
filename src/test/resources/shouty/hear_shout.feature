@@ -13,13 +13,13 @@ Feature: Hear Shout
     Then she should hear 1 shout
 
   @API_1.1.0
-  Scenario: Somebody shouts “Hello World”
+  Scenario: Somebody shouted “Hello World”
     Given somebody has shouted "Hello World"
     When Lucy checks the Shouty app
     Then she should hear "Hello World"
 
   @API_1.1.0
-  Scenario: Sean shouts a message
+  Scenario: Sean shouted a message
     Given Sean has shouted
     When Lucy checks the Shouty app
     Then she should hear a shout from Sean

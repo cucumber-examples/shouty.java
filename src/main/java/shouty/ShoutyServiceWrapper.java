@@ -8,7 +8,7 @@ import java.util.List;
 public class ShoutyServiceWrapper {
 
     private static final String REST_ROOT_URI
-            = "https://virtserver.swaggerhub.com/smartbear/Shout/"; // 1.0.0/shouts";
+            = "https://virtserver.swaggerhub.com/smartbear/Shout/";
 
     private String REST_URI;
 
@@ -19,5 +19,11 @@ public class ShoutyServiceWrapper {
 
     public void setAPI(String api) {
         REST_URI = REST_ROOT_URI + api;
+    }
+
+    public void shout(Shout shout) {
+        Unirest.post(REST_URI + "/shouts")
+                .body(shout)
+                .asEmpty();
     }
 }

@@ -32,14 +32,17 @@ public class ShoutSteps {
 
     @Given("somebody has shouted")
     public void somebody_has_shouted() {
+        shouty.shout(new Shout("???", "???"));
     }
 
     @Given("somebody has shouted {string}")
     public void somebody_has_shouted(String message) {
+        shouty.shout(new Shout("???", message));
     }
 
     @Given("Sean has shouted")
     public void sean_has_shouted() {
+        shouty.shout(new Shout("Sean", "???"));
     }
 
     @When("Lucy checks the Shouty app")
