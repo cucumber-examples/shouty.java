@@ -1,25 +1,30 @@
 Feature: Hear Shout
 
-  @API_1.0.0
-  Scenario: Nobody has shouted
-    Given nobody has shouted
-    When Lucy checks the Shouty app
-    Then she should hear nothing
+# Location data not passed to API
+  # /shouts POST & GET
+  Scenario: In range shout is heard
+    Given Sean is at 0, 0
+    And Lucy is at 900, 0
+    When Sean shouts
+    Then Lucy should hear Sean
 
-  @API_1.1.0
-  Scenario: Somebody has shouted
-    Given somebody has shouted
-    When Lucy checks the Shouty app
-    Then she should hear 1 shout
 
-  @API_1.1.0
-  Scenario: Somebody shouted “Hello World”
-    Given somebody has shouted "Hello World"
-    When Lucy checks the Shouty app
-    Then she should hear "Hello World"
+# Location data passed to API. Need two examples -> 2 versions of API: heard / Not heard from Sean
+  # /shouts POST & GET
+  # /location POST
+  Scenario: Out of range shout is not heard
+    Given Sean is at 0, 0
+    And Lucy is at 1200, 0
+    When Sean shouts
+    Then Lucy should not hear Sean
 
-  @API_1.1.0
-  Scenario: Sean shouted a message
-    Given Sean has shouted
-    When Lucy checks the Shouty app
-    Then she should hear a shout from Sean
+
+# Location data optionally passed with shout. Still only need 2 examples - POST should accept shouts with/without location
+  # /shouts POST (optional location) & GET
+  # /location POST
+  Scenario: Range calculated using specified location of business shout
+    Given Sean is at 99999, 99999
+    And Lucy is at 900, 0
+    When Sean shouts from 0, 0
+    Then Lucy should hear Sean
+
