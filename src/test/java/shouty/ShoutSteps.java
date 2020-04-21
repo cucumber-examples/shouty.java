@@ -1,39 +1,48 @@
 package shouty;
 
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import java.util.List;
 
-import static java.util.Collections.emptyMap;
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
+import io.cucumber.java.en.Then;
+
+import static java.util.Collections.emptyList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 
 public class ShoutSteps {
-    private static final String ARBITRARY_MESSAGE = "Hello, world";
-    private final Shouty shouty = new Shouty();
+    private final ShoutyServiceWrapper shouty;
+    private List<Shout> shouts;
 
-    @Given("Lucy is at {int}, {int}")
-    public void lucy_is_at(int xCoord, int yCoord) {
-        shouty.setLocation("Lucy", new Coordinate(xCoord, yCoord));
+    public ShoutSteps(ShoutyServiceWrapper shouty_){
+        shouty = shouty_;
     }
 
-    @Given("Sean is at {int}, {int}")
-    public void sean_is_at(int xCoord, int yCoord) {
-        shouty.setLocation("Sean", new Coordinate(xCoord, yCoord));
+    @Given("{word} is at {int}, {int}")
+    public void person_is_at(String person, int x, int y) {
+        shouty.setLocation(new PersonLocation(person, x, y));
     }
 
-    @When("Sean shouts")
-    public void sean_shouts() {
-        shouty.shout("Sean", ARBITRARY_MESSAGE);
+    @When("{word} shouts")
+    public void person_shouts(String person) {
+        shouty.shout(new Shout(person, "Hello, world"));
     }
 
-    @Then("Lucy should hear Sean")
-    public void lucy_should_hear_sean() {
-        assertEquals(1, shouty.getShoutsHeardBy("Lucy").size());
+    @When("{word} shouts from {int}, {int}")
+    public void person_shouts(String person, int x, int y) {
+        shouty.shout(new Shout(person, "Hello, world", x, y));
     }
 
-    @Then("Lucy should hear nothing")
-    public void lucy_should_hear_nothing() {
-        assertEquals(emptyMap(), shouty.getShoutsHeardBy("Lucy"));
+    @Then("{word} should hear {word}")
+    public void listener_should_hear_shouter(String listener, String shouter) {
+        assertEquals(shouter, shouty.getShouts().get(0).person);
+    }
+
+    @Then("{word} should not hear {word}")
+    public void listener_should_not_hear_shouter(String listener, String shouter) {
+        assertEquals(0, shouty.getShouts().size());
     }
 }
