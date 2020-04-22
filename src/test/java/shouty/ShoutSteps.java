@@ -9,8 +9,7 @@ import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 
 import static java.util.Collections.emptyList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 
 public class ShoutSteps {
@@ -28,10 +27,10 @@ public class ShoutSteps {
 
     @When("{word} shouts")
     public void person_shouts(String person) {
-        shouty.shout(new Shout(person, "Hello, world"));
+        //shouty.shout(new Shout(person, "Hello, world"));
     }
 
-    @When("{word} shouts from {int}, {int}")
+    @When("{word}'s shout originates from {int}, {int}")
     public void person_shouts(String person, int x, int y) {
         shouty.shout(new Shout(person, "Hello, world", x, y));
     }
@@ -43,6 +42,12 @@ public class ShoutSteps {
 
     @Then("{word} should not hear {word}")
     public void listener_should_not_hear_shouter(String listener, String shouter) {
-        assertEquals(0, shouty.getShouts().size());
+        List<Shout> shouts = shouty.getShouts();
+
+        if (shouts != null) {
+            for (Shout shout : shouts) {
+                assertNotEquals(shouter, shout.person);
+            }
+        }
     }
 }

@@ -15,12 +15,13 @@ public class SmokeAndMirrors {
     @Before
     public void setupExampleData(Scenario scenario) {
         switch (scenario.getName()) {
-            case "In range shout is heard":
-            case "Range calculated using specified location of business shout":
-                shouty.chooseStubbedData("0");
+            case "In-range shout is heard":
+            case "Business shout in-range based on origin":
+                shouty.chooseStubbedData(".0");
                 break;
-            case "Out of range shout is not heard":
-                shouty.chooseStubbedData("1");
+            case "Out-of-range shout is not heard":
+            case "Business shout out-of-range based on origin":
+                shouty.chooseStubbedData(".1");
                 break;
             default:
                 throw new RuntimeException("Unrecognised scenario name");
