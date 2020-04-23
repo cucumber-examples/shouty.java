@@ -22,7 +22,7 @@ public class ShoutSteps {
 
     @Given("{word} is at {int}, {int}")
     public void person_is_at(String person, int x, int y) {
-        shouty.setLocation(new PersonLocation(person, x, y));
+        shouty.setLocation(person, new Location(x, y));
     }
 
     @When("{word} shouts")
