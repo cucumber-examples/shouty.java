@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         plugin = {
                 "pretty",
-                "html:target/cucumber",
+                "html:target/cucumber.html",
                 "rerun:target/rerun.txt",
                 "json:target/cucumber.json"
         },
