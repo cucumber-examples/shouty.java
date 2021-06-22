@@ -39,6 +39,18 @@ In IntelliJ
 
 Then browse to the `pom.xml` file in the directory where you downloaded `shouty.java` and open the pom file. The project should now load.
 
+## Using Docker
+
+To get a command line shell for shouty, with Java and Maven, run `runDocker.sh`
+
+If you are running Linux or Mac OS with [XQuartz](https://www.xquartz.org/), you can get an Eclipse IDE running using `./eclipse`
+
+In Eclipse:
+
+`File > Import > Existing Maven Project`
+
+Then browse to `/workspace` directory.
+
 ## Run the tests
 
 In Eclipse:
