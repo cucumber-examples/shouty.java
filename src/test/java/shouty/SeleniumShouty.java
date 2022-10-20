@@ -4,10 +4,12 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequestWithBody;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import shouty.web.ShoutyWebServer;
 
 import java.util.ArrayList;
@@ -75,7 +77,14 @@ public class SeleniumShouty implements Shouty {
     private WebDriver findOrCreateBrowser(String personName) {
         WebDriver browser = browsers.get(personName);
         if (browser == null) {
-            browsers.put(personName, browser = new FirefoxDriver());
+            WebDriverManager.firefoxdriver().setup();
+            // Mobile web capabilities
+            FirefoxOptions options = new FirefoxOptions();
+            options.setHeadless(true);
+
+            FirefoxDriver driver = new FirefoxDriver(options);
+
+            browsers.put(personName, browser = driver);
         }
         return browser;
     }

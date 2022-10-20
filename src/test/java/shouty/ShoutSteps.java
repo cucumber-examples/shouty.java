@@ -15,11 +15,11 @@ public class ShoutSteps {
     private final Shouty shouty;
 
     public ShoutSteps() throws Exception {
-        if("selenium".equals(System.getProperty("automation"))) {
-            shouty = new SeleniumShouty();
-        } else {
-            shouty = new DomainShouty();
-        }
+        shouty = new SeleniumShouty();
+//        if("selenium".equals(System.getProperty("automation"))) {
+//        } else {
+//            shouty = new DomainShouty();
+//        }
     }
 
     @After
