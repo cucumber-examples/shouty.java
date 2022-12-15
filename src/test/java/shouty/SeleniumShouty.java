@@ -4,6 +4,8 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequestWithBody;
+import com.smartbear.visualtest.models.ScreenshotResponse;
+import com.smartbear.visualtest.VisualTest;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -47,6 +49,13 @@ public class SeleniumShouty implements Shouty {
         WebElement messageField = browser.findElement(By.id("message"));
         messageField.sendKeys(message);
         messageField.submit();
+        // FULL PAGE SCREENSHOT
+        try {
+            VisualTest visualTest = new VisualTest(browser, "YOUR_PROJECT_TOKEN_HERE", "YOUR_TESTRUN_NAME_HERE");
+            ScreenshotResponse result = visualTest.capture(String.format("Test__%s__%s__2", "fullpage", "firefox"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
